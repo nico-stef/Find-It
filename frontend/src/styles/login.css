@@ -1,0 +1,80 @@
+.login-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-form {
+  /* box-shadow: 40px -20px #4681a93c; */
+  /* box-shadow: 20px 16px 2px 1px #4681a93c; */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+
+  width: 40%;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 0.5rem 0.5rem;
+}
+
+.credential-line {
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+}
+
+/* titlul de Log In */
+.login-title {
+  display: flex;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* textul de signup daca nu ai cont  */
+.signup-text {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+/* labelurile: username, password */
+.login-form label {
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+  color: #333;
+}
+
+/* spatiul de input  */
+.login-form input {
+  border-radius: 8px;
+  margin: 5px;
+  align-self: center;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #ccc;
+  width: 95%; /*relativ la dimensiunea parintelui adica login-form */
+  font-size: 0.9rem;
+}
+
+/* buton  */
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.login-form button {
+  width: 95%; /*ocupa 90% din dimensiunea parintelui login-form */
+  padding: 0.75rem;
+  margin: 1.1rem 0rem;
+  font-size: 0.9rem;
+  border-radius: 20px;
+  border: none;
+  background-color: #4682a9;
+  color: #fff; /* text alb */
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.login-form button:hover {
+  background-color: #574fd6;
+}
