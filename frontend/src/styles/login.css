@@ -3,17 +3,39 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+}
+
+.logo-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  align-items: flex-end; /* app-name sa fie la baza containerului logo-container */
+  gap: 10px; /* spatiu intre logo si text */
+}
+
+.logo {
+  height: 3rem; /* dimensiune logo */
+}
+
+.app-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
 }
 
 .login-form {
-  /* box-shadow: 40px -20px #4681a93c; */
-  /* box-shadow: 20px 16px 2px 1px #4681a93c; */
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-
   width: 40%;
   border-radius: 5px;
   background-color: rgba(255, 255, 255, 0.85);
   padding: 0.5rem 0.5rem;
+}
+
+form {
+  padding: 0 20px;
 }
 
 .credential-line {
@@ -50,9 +72,9 @@
   border-radius: 8px;
   margin: 5px;
   align-self: center;
-  padding: 0.6rem 0.8rem;
+  padding: 10px 10px 10px 35px;
+  box-sizing: border-box; /* daca se adauga alte elemente, dimensiunea ramane aceeasi, paddingul nu mareste */
   border: 1px solid #ccc;
-  width: 95%; /*relativ la dimensiunea parintelui adica login-form */
   font-size: 0.9rem;
 }
 
@@ -77,4 +99,48 @@
 
 .login-form button:hover {
   background-color: #574fd6;
+}
+
+/* containerul cu 2 credentiale pe linie  */
+.two-credential-container {
+  display: flex;
+  width: 100%;
+}
+
+.credential {
+  flex: 1; /*elementele din container parinte ocupa spatiu egal */
+  display: flex; /* flex ca sa asezam label si input  */
+  flex-direction: column; /* label si si input sa fie una sub alta. daca era row, erau una dupa alta */
+  margin-left: 5px;
+  box-sizing: border-box;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.input-wrapper input {
+  width: 100%;
+}
+
+/* iconurile de la inputuri  */
+.input-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: #666;
+  pointer-events: none; /*nu răspunde la click-uri, hover  */
+}
+
+/* icon ochi de la password  */
+.password-toggle {
+  position: absolute;
+  top: 55%; /*colțul de stanga sus al iconului este plasat la jumătatea înălțimii părintelui. deci iconul e prea jos, colt stanga e la jumate*/
+  transform: translateY(
+    -50%
+  ); /* mută iconul în sus cu jumătate din înălțimea lui*/
+  right: 10px;
+  cursor: pointer;
+  color: #666;
 }
