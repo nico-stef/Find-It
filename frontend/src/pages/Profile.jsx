@@ -1,5 +1,5 @@
-import "./styles/profile.css";
-import profileImage from "./assets/default-profile.jpg";
+import "../styles/profile.css";
+import profileImage from "../assets/default-profile.jpg";
 
 const Profile = () => {
   return (

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import "./styles/login.css";
-import background from "./assets/background-login.avif";
-import logoImage from "./assets/menuImage2.png";
+import "../styles/login.css";
+import background from "../assets/background-login.avif";
+import logoImage from "../assets/menuImage2.png";
 import { Link } from "react-router-dom";
 import {
   FaLock,
