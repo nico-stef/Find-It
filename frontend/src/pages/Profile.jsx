@@ -1,7 +1,29 @@
 import "../styles/profile.css";
 import profileImage from "../assets/default-profile.jpg";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 const Profile = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        `http://localhost:3000/logout`,
+        {},
+        { withCredentials: true } //pentru a trimite si cookie
+      );
+
+      toast.success(response.data.message);
+      navigate("/login");
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Something went wrong.");
+    }
+  }
+
   return (
     <div className="profile-card">
       <div className="profile-data-card">
@@ -32,7 +54,7 @@ const Profile = () => {
         </div>
 
         <div className="profile-actions">
-          <button className="btn logout">Logout</button>
+          <button onClick={handleLogout} className="btn logout">Logout</button>
           <button className="btn delete">Șterge cont</button>
         </div>
       </div>

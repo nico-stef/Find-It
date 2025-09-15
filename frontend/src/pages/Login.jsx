@@ -1,13 +1,37 @@
 import { useState } from "react";
+import axios from 'axios';
 import "../styles/login.css";
 import background from "../assets/background-login.avif";
 import logoImage from "../assets/menuImage2.png";
 import { Link } from "react-router-dom";
 import { FaLock, FaEnvelope } from "react-icons/fa";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        `http://localhost:3000/login`,
+        { email, password },
+        { withCredentials: true } //pentru a trimite si cookie
+      );
+
+      setEmail("");
+      setPassword("");
+
+      toast.success(response.data.message);
+      navigate("/profile");
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Something went wrong.");
+    }
+  }
 
   return (
     <div
@@ -29,7 +53,7 @@ const Login = () => {
           New to Find It? <Link to="/signup">Create an account here.</Link>
         </p>
 
-        <form>
+        <form onSubmit={handleLogin}>
           <div className="credential-line">
             <label>Email:</label>
             <div className="input-wrapper">

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from 'axios';
 import "../styles/login.css";
 import background from "../assets/background-login.avif";
 import logoImage from "../assets/menuImage2.png";
@@ -13,6 +14,7 @@ import {
   FaPhone,
   FaCity,
 } from "react-icons/fa";
+import { toast } from "react-hot-toast";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -22,6 +24,28 @@ const Signup = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [city, setCity] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(`http://localhost:3000/register`, {
+        email, password, firstName, lastName, phone: phoneNumber, city
+      });
+
+      setEmail("");
+      setPassword("");
+      setFirstName("");
+      setLastName("");
+      setPhoneNumber("");
+      setCity("");
+      setShowPassword(false);
+
+      toast.success(response.data.message);
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Something went wrong."); //daca primim mesaj de pe backend il afisam, daca nu afisam ceva generic
+    }
+  }
 
   return (
     <div
@@ -43,7 +67,7 @@ const Signup = () => {
           Already have an account? <Link to="/login">Log in here.</Link>
         </p>
 
-        <form>
+        <form onSubmit={handleSignup}>
           <div className="credential-line">
             <label>Email:</label>
             <div className="input-wrapper">
@@ -108,7 +132,7 @@ const Signup = () => {
           </div>
           <div className="two-credential-container">
             <div className="credential">
-              <label>Phone Number:</label>
+              <label>Phone:</label>
               <div className="input-wrapper">
                 <FaPhone className="input-icon" />
                 <input
