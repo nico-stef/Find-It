@@ -22,8 +22,7 @@
 .app-name {
   font-size: 1.5rem;
   font-weight: bold;
-  color: white;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+  color: black;
 }
 
 .login-form {
@@ -91,7 +90,7 @@ form {
   font-size: 0.9rem;
   border-radius: 20px;
   border: none;
-  background-color: #4682a9;
+  background-color: #5b63b7;
   color: #fff; /* text alb */
   cursor: pointer;
   transition: background-color 0.2s, transform 0.2s;

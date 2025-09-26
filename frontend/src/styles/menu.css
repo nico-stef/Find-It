@@ -1,0 +1,67 @@
+/* Meniu general */
+.app-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  padding: 0 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border-bottom: 1px solid #9d9faa;
+}
+
+/* Partea stângă: logo + linkuri */
+.menu-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.menu-logo {
+  height: 30px;
+}
+
+.menu-link {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.menu-link:hover {
+  background-color: #f0f0f0;
+}
+
+/* Partea centrală: search */
+.menu-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.menu-search {
+  width: 400px;
+  max-width: 100%;
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.menu-search{
+    margin: 0;
+}
+
+/* Partea dreaptă: avatar */
+.menu-right {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: #cfd8dc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+}

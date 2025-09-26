@@ -13,7 +13,7 @@ const UserService = {
         // verifica daca emailul exista deja
         const existingUser = await userRepository.findByEmail(email);
         if (existingUser) {
-            throw createPublicError("Email is already in use", 409);
+            throw createPublicError("Email-ul este deja folosit de alt cont.", 409);
         }
 
         const user = await userRepository.create(userData);
@@ -25,7 +25,7 @@ const UserService = {
         const existingUser = await userRepository.findByEmail(email);
         //daca nu exista userul sau parola nu corespunde
         if (!existingUser || !(await bcrypt.compare(password, existingUser.password))) {
-            throw createPublicError("Invalid credentials.", 401);
+            throw createPublicError("Credentiale invalide.", 401);
         }
 
         const token = jwt.sign(

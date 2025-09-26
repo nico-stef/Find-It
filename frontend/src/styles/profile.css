@@ -1,134 +1,119 @@
-/* partea de profil  */
-.profile-card {
-  display: grid;
-  grid-template-columns: 2fr 3fr; /* 40%/60% aproximativ */
-  gap: 20px;
-  padding: 10px;
-  height: calc(100vh - 60px);
-  box-sizing: border-box; /* ca padding-ul să nu extindă lățimea */
-}
-
-.profile-data-card {
+.profile-details {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;   
   align-items: center;
-  justify-content: center;
-  /* design card */
-  background-color: white;
-  padding-top: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.profile-photo {
-  position: relative;
-  cursor: pointer;
-}
-
-.profile-photo img {
-  width: 300px;
-  height: 200px;
-  object-fit: contain; /* imaginea e potrivita, nu e stretched ca sa ocupe spatiul fixat */
-}
-
-.profile-photo .overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  /* cele 5 randuri de mai sus fac ca overlay-ul sa acopere exact div-ul părinte (.profile-photo). pozitia e raportata la div parinte */
-  background-color: rgba(128, 128, 128, 0.6);
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  transition: opacity 0.3s;
-  font-weight: bold;
-  font-size: 16px;
-}
-
-.profile-photo:hover .overlay {
-  opacity: 1;
-}
-
-/* informatii user */
-.user-info {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-  margin-top: 20px;
-}
-
-.info-card {
-  background-color: #fff;
-  padding: 12px 15px;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  margin: 0px 5px;
-}
-
-.info-label {
-  font-size: 12px;
-  color: #888;
-  margin-bottom: 5px;
-  text-transform: uppercase;
-}
-
-.info-value {
-  font-size: 16px;
-  font-weight: bold;
-  color: #333;
-}
-
-/* butoane cont  */
-.profile-actions {
-  display: flex;
-  gap: 15px;
-  margin-top: 20px;
-  margin-top: auto; /* se impinge cat mai jos posibil */
-  margin-bottom: 40px;
-  display: flex;
-}
-
-.btn {
-  padding: 10px 15px;
-  border: none;
+  gap: 1rem;
+  margin: 1.5rem 2rem;
+  padding: 1.2rem;
   border-radius: 8px;
-  font-size: 14px;
+  background-color: #e3e5f3;
+  /* box-shadow: 0 2px 8px rgba(0,0,0,0.05); */
+  border: 0.1rem solid #00000035;
+}
+
+.account-details{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  /* scoatem stilurile implicite ale ul */
+  list-style: none; 
+  padding: 0;       
+  margin: 0;  
+}
+
+.detail-li{
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.profile-img {
+  max-width: 8rem;
+  max-height: 8rem;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 1rem;
+}
+
+.btn-profile {
+  background-color: #5b63b7;
+  color: white;
+  margin-left: 14rem;   
+  margin-right: 2rem;   
+  padding: 1rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
   cursor: pointer;
-  transition: background-color 0.2s, transform 0.2s; /*orice schimbare a culorii de fundal si a proprietății transform se face in 0.2s  */
+  transition: background-color 0.2s ease;
+  font-size: 0.8rem;
+  font-weight: 700;
 }
 
-.btn:hover {
-  transform: translateY(-2px);
-}
-
-.btn.logout {
-  background-color: #3498db; /*culoare buton  */
-  color: white; /*culoare text buton  */
-}
-
-.btn.logout:hover {
-  background-color: #2980b9;
-}
-
-.btn.delete {
-  background-color: #e74c3c;
+.btn-profile:hover {
+  background-color: #454c94; 
   color: white;
 }
 
-.btn.delete:hover {
-  background-color: #c0392b;
+
+/* -----------container butoane switch ------------ */
+.switch-buttons {
+  display: flex;
+  justify-content: center;
 }
 
-/* partea de postari */
-.posts-card {
-  /* design card */
-  background-color: white;
-  padding-top: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+/* butoanele*/
+.switch-button {
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+  padding: 0.7rem 2.5rem;
+  color: #333;
+  transition: all 0.2s ease;
+}
+
+.switch-button:first-child {
+  border-radius: 8px 0 0 8px; /* rotunjim primul buton/copil in partea stanga*/
+}
+
+.switch-button:last-child {
+  border-radius: 0 8px 8px 0; /* rotunjim al 2lea buton/copil in partea dreapta */
+}
+
+.switch-button:hover {
+  background: #f3f3f6; /* usor gri la hover */
+}
+
+.switch-button.active { /* cand e selectat butonul */
+  background: #fff;
+  border-bottom: 2px solid #000;
+  color: #000;
+}
+
+
+/* --------------butonul de creeaza postare---------------  */
+.post-ad-container {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+}
+
+.post-ad-btn {
+  border: none;
+  cursor: pointer;
+  background-color: #5b63b7;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  padding: 0.6rem 1.8rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: all 0.3s ease;
+}
+
+.post-ad-btn:hover {
+  background-color: #454c94;
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
 }

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import axios from 'axios';
 import "../styles/login.css";
-import background from "../assets/background-login.avif";
 import logoImage from "../assets/menuImage2.png";
 import { Link } from "react-router-dom";
 import { FaLock, FaEnvelope } from "react-icons/fa";
@@ -37,10 +36,11 @@ const Login = () => {
     <div
       className="login-container"
       style={{
-        backgroundImage: `url(${background})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+        background: "linear-gradient(135deg, #e5e6ff 0%, #5b63b7d5 100%)",
         height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
       <div className="logo-container">

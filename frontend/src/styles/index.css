@@ -1,16 +1,4 @@
-/* @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&display=swap"); */
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
-/* @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700&display=swap");
-
-body {
-  font-family: "Open Sans", sans-serif;
-} */
-
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
-
-body {
-  font-family: "Nunito", sans-serif;
-}
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 html,
 body,
@@ -19,5 +7,6 @@ body,
   padding: 0;
   height: 100%;
   width: 100%;
-  background-color: white;
+  background-color: #fff;
+  font-family: 'Roboto', sans-serif;
 }

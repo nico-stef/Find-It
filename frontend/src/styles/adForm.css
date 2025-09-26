@@ -1,0 +1,202 @@
+
+/* daca deschidem modal, se adauga clasa modal-open la body si overflow va fi hidden ca sa nu avem scrollbar  */
+body.modal-open {
+  overflow: hidden;
+}
+
+/* Formular fullscreen */
+.form-wrapper {
+  position: fixed; /* form-wrapper fixat in colt stanga sus */
+  top: 65px; /* height meniul + umbra */
+  left: 0;
+  width: 100%; /* form-wrapper se intinde pe tot ecranul, pe w si h */
+  height: calc(100% - 65px); 
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Cutia formularului */
+.form-container {
+  width: 100%; /* Dacă ecranul < 500px → ocupa cat e ecranul */
+  max-width: 500px; /* Dacă ecranul > 500px → ocupa 500px */
+  display: flex;
+  flex-direction: column;
+}
+
+/* buton inapoi */
+h2{
+  text-align: center;
+  margin-top: -10px;
+  margin-bottom: 30px;
+}
+
+.back-btn {
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  background: none;
+  border: none;
+  color: #5b63b7;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.back-btn:hover {
+  text-decoration: underline;
+}
+
+/* ----------un rand cu label si input---------------  */
+.row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.row label {
+  width: 20%; /* fara el, label-ul "date de contact, ar fi prea lung si ar face input mai mic*/
+  margin-right: auto;
+  font-weight: 600;
+}
+
+/* Inputuri și textareas */
+input,
+select,
+textarea,
+.custom-file-label {
+  padding: 10px;
+  border: 1px solid #000;
+  border-radius: 6px;
+  font-family: 'Roboto', sans-serif; 
+  width: 80%; /* restul de 20% este label*/
+  margin-left: auto;
+  box-sizing: border-box; /* fara asta, select ar fi mai mic, din cauza cum tarteaza browserele select */
+}
+
+/* Textarea - */
+textarea {
+  resize: none;       /* nu se poate redimensiona manual */
+  height: 50px;       /* înălțime fixă mai mică */
+  overflow-y: auto;   /* scroll vertical dacă textul depășește zona */
+  font-size: 14px;
+}
+
+/* Buton submit */
+.submit-btn {
+  background-color: #5b63b7;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #454c94;
+}
+
+
+
+
+
+/* input obisnuit al file upload nu va aparea, vom construi un div in locul lui, pe care il legam la input type=file */
+.customFileInput {
+  display: none; /* ascunde input-ul real */
+}
+
+
+/* --------------container imagini---------------------------- */
+.custom-file-label{
+  text-align: center;
+  cursor: pointer;
+  height: 6rem; 
+  overflow-y: auto;     /* scroll pe verticală */
+  overflow-x: hidden; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-icon {
+  font-size: 18px;
+  margin-right: 5px;
+}
+
+.upload-text {
+  font-size: 15px;
+  font-family: 'Roboto', sans-serif; 
+}
+
+/* ----------preview al imaginilor incarcate------------------ */
+.preview-wrapper {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.preview-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+  color: #333;
+}
+
+.preview-img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* ---------------sugestii locatie------------------ */
+.input-location-wrapper {
+  position: relative; /* pentru dropdown */
+  width: 80%; /* la fel ca input-ul */
+  margin-left: auto; /* pentru aliniere cu input-ul */
+}
+
+.input-location-wrapper input {
+  width: 100%; /* ocupă tot spațiul wrapper-ului */
+}
+
+.suggestions {
+  position: absolute;
+  top: 100%; /* imediat sub input */
+  left: 0;
+  width: 100%; /* ocupa tot wrapper-ul */
+  border: 1px solid #ccc;
+  background: white;
+  max-height: 150px;
+  overflow-y: auto;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  z-index: 1000;
+}
+
+.suggestions li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.suggestions li:hover {
+  background-color: #f0f0f0;
+}
+
+.error-message {
+    color: red;
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+.optional {
+  font-size: 0.85em;
+  color: #777;
+}

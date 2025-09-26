@@ -51,7 +51,7 @@ const Signup = () => {
     <div
       className="login-container"
       style={{
-        backgroundImage: `url(${background})`,
+        background: "linear-gradient(135deg, #e5e6ff 0%, #5b63b7d5 100%)",
         backgroundSize: "cover",
         backgroundPosition: "center",
         height: "100vh",

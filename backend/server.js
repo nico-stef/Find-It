@@ -1,12 +1,11 @@
 import express from "express";
 import cors from "cors";
+import connectDB from "./connections/mongoDb.js";
 import cookieParser from "cookie-parser";
-import dotenv from "dotenv";
-import mongoose from "mongoose";
 import { errorHandler } from "./middlewares/errorHandler.js";
-import UserRoutes from "./routes/user.routes.js"
-
-dotenv.config();
+import UserRoutes from "./routes/user.routes.js";
+import LocationRoutes from './routes/location.routes.js';
+import PostRoutes from './routes/post.routes.js';
 
 const app = express(); //express application instance = serverul web 
 app.use(express.json()); //middleware ce primeste req body in formt JSON si il transforma in obiect JS
@@ -18,11 +17,15 @@ app.use(cors({
 
 app.use(cookieParser());
 
+//------conectare la MongoDb----------
+connectDB();
+
 app.use(UserRoutes);
+app.use(LocationRoutes);
+app.use(PostRoutes);
 
 app.use(errorHandler);
 
-const dbURI = process.env.dbURI;
-mongoose.connect(dbURI)
-    .then((result) => app.listen(3000))
-    .catch((err) => console.log(err));
+app.listen(3000, () => {
+    console.log("Server running on port 3000");
+});
