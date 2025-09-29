@@ -19,7 +19,8 @@ const postSchema = new mongoose.Schema({
     dateTime: { type: Date },
     contact: { type: String, required: true },
     description: { type: String, trim: true },
-    images: { type: [String], default: [] }
+    images: { type: [String], default: [] }, //aici salvam keys ale obiectelor din bucket S3
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }
 }, { timestamps: true });
 
 const Post = mongoose.model("Post", postSchema);

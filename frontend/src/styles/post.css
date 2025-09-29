@@ -1,23 +1,35 @@
+.type-indicator {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+  text-transform: capitalize;
+  font-size: 0.8rem;
+}
 .post-card {
-  background: white;
+  position: relative; /* ca type-indicator să fie absolut în interior */
+  background: #e3e5f3;
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  width: 15rem;
+  width: 25rem;
   overflow: hidden;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   cursor: pointer;
-  background: #e3e5f3;
   border: 0.1rem solid #00000035;
 }
 
 .post-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
 .card-image {
   width: 100%;
-  height: 10rem;
-  object-fit: cover;
+  height: 12rem;
+  object-fit: contain;
 }
 
 .card-body {
@@ -26,14 +38,38 @@
 
 .card-title {
   margin: 0 0 10px 0;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 600;
   color: #333;
 }
 
 .card-subinfo {
   font-size: 0.9rem;
-  color: #777;
+  color: #555;
   display: flex;
   justify-content: space-between;
+  margin-top: 5px;
 }
+
+.card-location {
+  font-style: italic;
+  padding-right: 2rem;
+}
+
+.card-date {
+  font-weight: 500;
+  color: #444;
+}
+
+.card-description {
+  font-size: 0.95rem;
+  color: #555;
+  margin: 5px 0 10px 0;
+  line-height: 1.3;
+}
+
+.text-content {
+  display: flex;
+  flex-direction: column;
+}
+

@@ -1,5 +1,8 @@
 /* Meniu general */
 .app-menu {
+  position: sticky;
+  top: 0; /* lipit de partea de sus a viewport-ului */
+  z-index: 1000; 
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -7,6 +10,7 @@
   padding: 0 20px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   border-bottom: 1px solid #9d9faa;
+  background-color: white;
 }
 
 /* Partea stângă: logo + linkuri */

@@ -80,11 +80,6 @@ const AdFormComponent = ({ onClose }) => {
         };
     }, []);
 
-
-    useEffect(() => {
-        console.log("FormData s-a schimbat:", formData.date, formData.time);
-    }, [formData]);
-
     const handleTimeClick = () => {
         if (!formData.date) {
             setShowTimeError(true); // afișăm mesajul doar dacă nu există data

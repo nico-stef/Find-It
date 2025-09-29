@@ -10,6 +10,7 @@ const userSchema = new Schema({
     lastName: { type: String, required: true },
     phone: String,
     city: String,
+    profileImage: { type: String, default: '' }
 }, { timestamps: true });
 
 // hash-uim parola inainte de a salva un user, indiferent de unde facem salvarea, cu middleware-ul `pre`, inainte de a face un `save` in baza de date in user.repository

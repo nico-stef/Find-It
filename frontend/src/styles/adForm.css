@@ -7,14 +7,15 @@ body.modal-open {
 /* Formular fullscreen */
 .form-wrapper {
   position: fixed; /* form-wrapper fixat in colt stanga sus */
-  top: 65px; /* height meniul + umbra */
+  top: 60px; /* height meniul + umbra */
   left: 0;
   width: 100%; /* form-wrapper se intinde pe tot ecranul, pe w si h */
-  height: calc(100% - 65px); 
+  height: calc(100% - 60px); 
   background: white;
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1000; /* sa apara peste post-cards care sunt relative (pentru a avea tag de pierdut/gasit) */
 }
 
 /* Cutia formularului */
@@ -99,15 +100,10 @@ textarea {
   background-color: #454c94;
 }
 
-
-
-
-
 /* input obisnuit al file upload nu va aparea, vom construi un div in locul lui, pe care il legam la input type=file */
 .customFileInput {
   display: none; /* ascunde input-ul real */
 }
-
 
 /* --------------container imagini---------------------------- */
 .custom-file-label{

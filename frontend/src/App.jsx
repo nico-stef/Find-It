@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import EditProfile from "./pages/EditProfile";
 import { Toaster } from "react-hot-toast";
 import ProtectedRoutes from './routes/ProtectedRoutes';
 
@@ -23,6 +24,7 @@ function App() {
             <Route element={<Layout />}>
               <Route path="home" element={<Home />} />
               <Route path="profile" element={<Profile />} />
+              <Route path="editProfile" element={<EditProfile />} />
             </Route>
           </Route>
         </Routes>

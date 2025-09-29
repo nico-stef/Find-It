@@ -1,34 +1,42 @@
 import "../styles/profile.css";
 import profileImage from "../assets/default-profile.jpg";
-import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from 'axios';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaEnvelope, FaMapMarkerAlt, FaCalendar } from "react-icons/fa";
 import PostComponent from "../components/PostComponent";
 import AdFormComponent from "../components/AdFormComponent";
 
 const Profile = () => {
-  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("posts");
   const [showForm, setShowForm] = useState(false);
+  const [yourPosts, setYourPosts] = useState(null);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState("");
+  const limit = 6;
 
-  const handleLogout = async (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    const getYourPosts = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:3000/posts/me?page=${page}&limit=${limit}`,
+          { withCredentials: true }
+        );
 
-    try {
-      const response = await axios.post(
-        `http://localhost:3000/logout`,
-        {},
-        { withCredentials: true } //pentru a trimite si cookie
-      );
+        setYourPosts(res.data.posts)
+        setTotalPages(res.data.totalPages);
+      } catch (err) {
+        console.error("Error fetching posts:", err);
+      }
+    };
 
-      toast.success(response.data.message);
-      navigate("/login");
-    } catch (error) {
-      toast.error(error?.response?.data?.message || "Something went wrong.");
-    }
-  }
+    getYourPosts();
+  }, [page, limit]);
+
+
+  useEffect(() => {
+    console.log("FormData s-a schimbat:", yourPosts);
+  }, [yourPosts]);
 
   return (
     <div>
@@ -53,7 +61,10 @@ const Profile = () => {
 
         </div>
 
-        <button className="btn-profile">Editează Profile</button>
+        <Link to="/editProfile" className="btn-profile">
+          Setări profil
+        </Link>
+
       </div>
 
       <div>
@@ -85,45 +96,53 @@ const Profile = () => {
         </button>
       </div>
 
-      <div style={{ display: "flex", gap: "20px", justifyContent: 'space-evenly', flexWrap: "wrap", margin: "2rem" }}>
-        <PostComponent
-          image="https://picsum.photos/153"
-          title="My first post"
-          location="Bucuresti"
-          date="17 Sept 2025"
-        />
-        <PostComponent
-          image="https://picsum.photos/150"
-          title="Another post"
-          location="Cluj"
-          date="16 Sept 2025"
-        />
-        <PostComponent
-          image="https://picsum.photos/156"
-          title="Another post"
-          location="Cluj"
-          date="16 Sept 2025"
-        />
-        <PostComponent
-          image="https://picsum.photos/159"
-          title="Another post"
-          location="Cluj"
-          date="16 Sept 2025"
-        />
-        <PostComponent
-          image="https://picsum.photos/160"
-          title="Another post"
-          location="Cluj"
-          date="16 Sept 2025"
-        />
-        <PostComponent
-          image="https://picsum.photos/170"
-          title="Another post"
-          location="Cluj"
-          date="16 Sept 2025"
-        />
-
+      <div style={{ display: "flex", gap: "2rem", justifyContent: 'space-evenly', flexWrap: "wrap", margin: "2rem" }}>
+        {yourPosts && yourPosts.length > 0 ? (
+          yourPosts.map((post) => (
+            <PostComponent
+              key={post._id}
+              type={post.type}
+              title={post.title}
+              location={post.location.address}
+              images={post.images}
+              dateTime={post.dateTime}
+              description={post.description}
+            />
+          ))
+        ) : (
+          <p>Nu ai postări încă.</p>
+        )}
       </div>
+
+      {/* PAGINATION */}
+      <div className="pagination">
+        <button
+          onClick={() => setPage((p) => Math.max(p - 1, 1))} //se asigura ca pagina nu scade sub 1
+          disabled={page === 1}
+          className="pagination-btn"
+        >
+          &lt; Înapoi
+        </button>
+
+        {Array.from({ length: totalPages }, (_, i) => ( //creeaza un array de lungimea totalPages. nu nu intereseaza elementul, de accea _. ne intereseaza indexul i
+          <button
+            key={i}
+            onClick={() => setPage(i + 1)}
+            className={`pagination-btn ${page === i + 1 ? "active" : ""}`}
+          >
+            {i + 1}
+          </button>
+        ))}
+
+        <button
+          onClick={() => setPage((p) => Math.min(p + 1, totalPages))} //se asigura ca pagina nu creste peste valoarea totalPages
+          disabled={page === totalPages}
+          className="pagination-btn"
+        >
+          Înainte &gt;
+        </button>
+      </div>
+
 
     </div>
   );

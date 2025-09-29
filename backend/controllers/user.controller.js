@@ -5,7 +5,7 @@ const UserController = {
         try {
             const { email, password, firstName, lastName } = req.body;
             if (!email || !password || !firstName || !lastName) {
-                return res.status(400).json({ message: "All fields need to be completed." });
+                return res.status(400).json({ message: "Câmpurile necesare nu pot fi goale." });
             }
             console.log(req.body)
             await userService.register(req.body);
@@ -57,6 +57,41 @@ const UserController = {
         // se trece prin middleware-ul authMiddleware, care verifica tokenul din cookie.
         // functia ajuta la a sti daca user are accces la anumite pagini din frontend
         res.status(200).json({ authenticated: true });
+    },
+    getUserInfo: async (req, res, next) => {
+        try {
+            const email = req.user.email;
+            const data = await userService.userInfo(email);
+
+            res.status(200).json(data);
+        } catch (err) {
+            next(err);
+        }
+    },
+    updateUserInfo: async (req, res, next) => {
+        try {
+            const userId = req.user.userId;
+            const userData = req.body;
+            if (!userData.firstName || !userData.lastName || !userData.email) {
+                return res.status(400).json({ message: "Câmpurile necesare nu pot fi goale." });
+            }
+
+            const newUser = await userService.updateById(userId, userData, req.file);
+            res.status(200).json(newUser);
+        } catch (err) {
+            next(err);
+        }
+    },
+    deleteUser: async (req, res, next) => {
+        try {
+            const userId = req.user.userId;
+            await userService.deleteUser(userId);
+
+            res.clearCookie("token");
+            res.status(204).send();
+        } catch (err) {
+            next(err);
+        }
     }
 };
 

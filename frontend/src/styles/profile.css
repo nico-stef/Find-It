@@ -21,6 +21,10 @@
   margin: 0;  
 }
 
+.profile-details h2 {
+  text-align: left;   /* aliniază textul la stânga în containerul său */
+}
+
 .detail-li{
   display: flex;
   align-items: center;
@@ -47,7 +51,14 @@
   transition: background-color 0.2s ease;
   font-size: 0.8rem;
   font-weight: 700;
+  text-decoration: none;
 }
+
+.btn-profile a {
+  text-decoration: none; /* scoate underline */
+  color: inherit;       /* moștenește culoarea butonului */
+}
+
 
 .btn-profile:hover {
   background-color: #454c94; 
@@ -116,4 +127,37 @@
   background-color: #454c94;
   color: #fff;
   box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+
+
+/* PAGINATION  */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px; /* spațiu între butoane */
+  margin-top: 20px;
+  padding-bottom: 3rem;
+}
+
+.pagination-btn {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  background-color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background-color: #ddd;
+}
+
+.pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-btn.active {
+  background-color: #5b63b7;
+  color: white;
 }

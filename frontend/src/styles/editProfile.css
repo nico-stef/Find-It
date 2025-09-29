@@ -1,0 +1,192 @@
+.edit-profile-page{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 60px);  /* înălțime viewport */
+  background: linear-gradient(135deg, #e5e6ff 0%, #5b63b7d5 100%);
+}
+
+.container{
+  width: 50%;
+  overflow: hidden;
+  border: 1px solid #000;
+  padding: 0 2rem;
+  border-bottom: none;
+  background-color: #fff;
+  border-radius: 10px 10px 0 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  margin: 10px;
+  border-bottom: 1px solid #000;
+  background-color: #fff;
+}
+
+/* Avatar + nume */
+.header-picture {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  align-items: flex-end;
+}
+
+.header-button{
+  display: flex;
+  align-items: center;
+}
+
+.avatar-wrapper {
+  position: relative;
+  cursor: pointer;
+}
+
+.avatar {
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #000;
+  display: block;
+}
+
+.avatar-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: rgba(0,0,0,0.4); /* gri opac */
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;   /* invizibil implicit */
+  transition: opacity 0.3s;
+}
+
+.avatar-wrapper:hover .avatar-overlay {
+  opacity: 1;
+}
+
+.edit-icon {
+  font-size: 24px;
+}
+
+/* Nume user */
+.header-name h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  padding: 1rem 1rem;
+}
+
+/* Buton Salvează */
+.btn-save {
+  padding: 10px 16px;
+  background-color: #5b63b7;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.btn-save:hover {
+  background-color: #454c94; 
+  color: white;
+}
+
+/* Form containers */
+.container-row {
+  display: flex;
+  gap: 20px;        /* spațiu între coloane */
+  margin-top: 20px;
+  flex-wrap: wrap;  /* pe mobil să treacă pe linia următoare */
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  flex: 1;            /* ocupă spațiul disponibil egal cu celelalte field-uri din rând */
+  min-width: 200px;   /* să nu fie prea mic pe ecrane mari */
+}
+
+.field label {
+  font-size: 0.9em;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.field input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #000;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+}
+
+.field input:focus {
+  border-color: #000;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.9);
+  outline: none;
+}
+
+.buttons{
+  display: flex;
+  width: 50%;
+  flex-direction: column;
+  padding-top: 4rem;
+  border: 1px solid #000;
+  padding: 0 2rem;
+  padding-bottom: 1.5rem;
+  border-top: none;
+  background-color: #fff;
+   border-radius: 0 0 10px 10px;
+}
+
+.logout-btn, .delete-btn {
+  display: block;       /* face butonul să fie pe linie separată */
+  width: 70%;          /* ocupă tot containerul */
+  align-self: center;
+  padding: 12px 20px;
+  margin-top: 15px;     /* spațiu între butoane */
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: white;
+  transition: 0.3s;
+}
+
+/* Log out */
+.logout-btn {
+  background-color: #ff6666; 
+}
+
+.logout-btn:hover {
+  background-color: #ff4d4d;
+}
+
+/* Șterge contul */
+.delete-btn {
+  background-color: #cc0000;
+}
+
+.delete-btn:hover {
+  background-color: #990000;
+}
+
+
+/* Responsive */
+@media (max-width: 600px) {
+  .container-row {
+    flex-direction: column;
+  }
+}
