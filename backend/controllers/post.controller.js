@@ -27,6 +27,18 @@ const PostController = {
         } catch (err) {
             next(err);
         }
+    },
+    getByFilters: async (req, res, next) => {
+        try {
+            const { type, date, location } = req.query;
+            const page = parseInt(req.query.page);
+            const limit = parseInt(req.query.limit);
+
+            const result = await PostService.getPostsFiltered(type, date, location, page, limit);
+            res.status(200).json(result);
+        } catch (err) {
+            next(err);
+        }
     }
 };
 

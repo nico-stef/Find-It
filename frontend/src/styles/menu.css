@@ -7,7 +7,7 @@
   justify-content: space-between;
   align-items: center;
   height: 60px;
-  padding: 0 20px;
+  padding: 0 3.5rem;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   border-bottom: 1px solid #9d9faa;
   background-color: white;
@@ -27,7 +27,6 @@
 .menu-link {
   text-decoration: none;
   color: #333;
-  font-weight: 500;
   padding: 5px 10px;
   border-radius: 4px;
 }
@@ -49,23 +48,9 @@
   padding: 8px 16px;
   border: 1px solid #ccc;
   border-radius: 6px;
-  font-size: 14px;
+  font-size: 1rem;
 }
 
 .menu-search{
     margin: 0;
-}
-
-/* Partea dreaptă: avatar */
-.menu-right {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  background-color: #cfd8dc;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  color: #333;
-  cursor: pointer;
 }

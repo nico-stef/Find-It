@@ -140,6 +140,10 @@ const AdFormComponent = ({ onClose }) => {
         }
     };
 
+    useEffect(() => {
+        console.log(formData)
+    }, [formData])
+
     return (
         <div className="form-wrapper">
             <button type="button" className="back-btn" onClick={onClose}>

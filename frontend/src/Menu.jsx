@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import menuImage from "./assets/menuImage2.png";
 import './styles/menu.css'
 
-const options = ["Dashboard", "Map", "Profile"];
+const options = ["Home", "Map", "Profile"];
 
 const AppMenu = () => {
   return (
@@ -20,12 +20,12 @@ const AppMenu = () => {
           placeholder="Search by key words..."
         />
       </div>
-
+      {/* 
       <div className="menu-right">
         <Link to="/profile">
           <div >N</div>
         </Link>
-      </div>
+      </div> */}
     </nav>
   );
 };

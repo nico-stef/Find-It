@@ -11,5 +11,6 @@ const upload = multer({ storage: storage });
 
 router.post("/post", authMiddleware, upload.array('images', 12), PostController.post);
 router.get("/posts/me", authMiddleware, PostController.getByUser);
+router.get("/posts", authMiddleware, PostController.getByFilters);
 
 export default router;

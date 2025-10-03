@@ -26,7 +26,7 @@ const Login = () => {
       setPassword("");
 
       toast.success(response.data.message);
-      navigate("/profile");
+      navigate("/home");
     } catch (error) {
       toast.error(error?.response?.data?.message || "Something went wrong.");
     }

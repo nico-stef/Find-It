@@ -5,8 +5,8 @@
   gap: 1rem;
   margin: 1.5rem 2rem;
   padding: 1.2rem;
-  border-radius: 8px;
-  background-color: #e3e5f3;
+  /* border-radius: 8px; */
+  background-color: #562db9;
   /* box-shadow: 0 2px 8px rgba(0,0,0,0.05); */
   border: 0.1rem solid #00000035;
 }
@@ -19,9 +19,11 @@
   list-style: none; 
   padding: 0;       
   margin: 0;  
+  color: white;
 }
 
 .profile-details h2 {
+  color: white;
   text-align: left;   /* aliniază textul la stânga în containerul său */
 }
 
@@ -40,8 +42,8 @@
 }
 
 .btn-profile {
-  background-color: #5b63b7;
-  color: white;
+  background-color: white;
+  color: black;
   margin-left: 14rem;   
   margin-right: 2rem;   
   padding: 1rem 1rem;
@@ -49,7 +51,7 @@
   border: none;
   cursor: pointer;
   transition: background-color 0.2s ease;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   font-weight: 700;
   text-decoration: none;
 }

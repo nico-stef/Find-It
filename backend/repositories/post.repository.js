@@ -19,6 +19,24 @@ const PostRepository = {
     },
     async deleteByUser(userId) {
         return Post.deleteMany({ userId });
+    },
+    async findByFilters(type, startDate, endDate, location, page, limit) {
+        const query = {};
+        if (type) query.type = type;
+        if (location) query["location.address"] = location;
+        if (startDate && endDate) query.dateTime = { $gte: startDate, $lte: endDate };
+
+        const totalPosts = await Post.countDocuments(query);
+
+        const posts = await Post.find(query)
+            .sort({ dateTime: -1 })
+            .skip((page - 1) * limit)
+            .limit(limit);
+
+        return {
+            totalPages: Math.ceil(totalPosts / limit),
+            posts
+        };
     }
 };
 

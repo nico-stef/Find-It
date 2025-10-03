@@ -1,0 +1,137 @@
+
+/* BANNER  */
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #562db9;
+  color: white;
+  padding: 0.5rem 3rem
+}
+
+.banner-text {
+  flex: 1;
+}
+
+.banner-text h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.banner-text p {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.banner-btn {
+  background: white;
+  color: black;
+  padding: 0.8rem 1.5rem;
+  border-radius: 0.8rem;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s ease-in-out;
+}
+
+.banner-btn:hover {
+  background: #2596be;
+}
+
+.banner-img {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.banner-img img {
+  max-width: 50%;
+  height: auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .banner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .banner-img {
+    margin-top: 1.5rem;
+  }
+}
+
+/* FILTRE  */
+
+.filters {
+  display: flex;
+  gap: 3rem;
+  margin: 2rem 0;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.filter{
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filter label{
+    /* font-style: italic; */
+}
+
+.filter select{
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.filter input {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+  width: 13rem;
+  max-width: 13rem; 
+}
+
+.search-btn {
+  padding: 0.5rem 1.5rem;
+  background: #185ca3;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.search-btn:hover {
+  background: #2596be;
+}
+
+.suggestions-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 10;
+  margin-top: 0.2rem;
+  list-style: none;
+  padding: 0;
+}
+
+.suggestions-list li {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.suggestions-list li:hover {
+  background-color: #f0f0f0;
+}

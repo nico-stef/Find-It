@@ -1,4 +1,5 @@
 import "../styles/post.css";
+import { FaRegCalendarAlt } from "react-icons/fa";
 
 const PostComponent = ({ type, images, title, location, dateTime, description }) => {
     const firstImage = Array.isArray(images) && images.length > 0 ? images[0] : null;
@@ -30,15 +31,21 @@ const PostComponent = ({ type, images, title, location, dateTime, description })
                     alignItems: 'center'
                 }}>
                     <div style={{ padding: "1rem" }}>
-                        {title && <h3 className="card-title">{title}</h3>}
+                        {title && <h3>{title}</h3>}
 
                         {description && <p className="card-description">
                             {description.length > 150 ? description.slice(0, 100) + "..." : description}
                         </p>}
 
                         <div className="card-subinfo">
-                            <span className="card-location">{location}</span>
-                            <span className="card-date">{displayDate}</span>
+                            <span className="card-location">
+                                📍
+                                {location}
+                            </span>
+                            <span className="card-date">
+                                <FaRegCalendarAlt color="blue" size={14} />
+                                {displayDate}
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -47,15 +54,23 @@ const PostComponent = ({ type, images, title, location, dateTime, description })
             {/* daca exista imagine, textul merge normal sub imagine */}
             {firstImage && (
                 <div className="card-body">
-                    {title && <h3 className="card-title">{title}</h3>}
+                    {title && <h3>{title}</h3>}
 
                     {description && <p className="card-description">
                         {description.length > 150 ? description.slice(0, 100) + "..." : description}
                     </p>}
 
                     <div className="card-subinfo">
-                        <span className="card-location">{location}</span>
-                        <span className="card-date">{displayDate}</span>
+                        <span className="card-location">
+                            📍
+                            {location}
+                        </span>
+                        {displayDate && (
+                            <span className="card-date">
+                                <FaRegCalendarAlt color="blue" size={14} />
+                                {displayDate}
+                            </span>
+                        )}
                     </div>
                 </div>
             )}
