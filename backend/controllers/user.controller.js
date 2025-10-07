@@ -92,6 +92,14 @@ const UserController = {
         } catch (err) {
             next(err);
         }
+    },
+    getUserId: async (req, res, next) => {
+        try {
+            const userId = req.user.userId;
+            res.status(200).json({ userId });
+        } catch (err) {
+            next(err);
+        }
     }
 };
 

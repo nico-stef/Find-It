@@ -37,6 +37,44 @@ const PostRepository = {
             totalPages: Math.ceil(totalPosts / limit),
             posts
         };
+    },
+    async finOneById(id) {
+        const post = await Post.findById(id);
+        await post.populate("comments.userId", "firstName lastName email");
+        return post;
+    },
+    async addComment(postId, userId, text) {
+        const post = await this.finOneById(postId);
+        if (!post) return null;
+
+        post.comments.push({ userId, text });//modifici documentul mongoose in RAM, nu in DB
+        await post.save(); //salvezi modificarile in DB
+
+        await post.populate("comments.userId", "firstName lastName email");// adauga campurile name si email in comments la userId in 
+        //                                                                //documentul mongoose de aici. baza de date ramane neschimbata
+
+        return post.comments;//returneaza comentariile acelei postari
+    },
+    async findComment(postId, commentId) {
+        const post = await Post.findById(postId);
+        if (!post) return null;
+
+        const comment = post.comments.id(commentId); //metoda id este doar pentru array-urile de subdocumente
+        return comment;
+    },
+    async deleteComment(postId, commentId) {
+        const post = await Post.findById(postId);
+        if (!post) return null;
+
+        const comment = post.comments.id(commentId); //metoda id este doar pentru array-urile de subdocumente
+
+        // Ștergem subdocumentul
+        comment.deleteOne(); // în loc de comment.remove()
+
+        await post.save();
+        await post.populate("comments.userId", "firstName lastName email");
+
+        return post.comments;
     }
 };
 

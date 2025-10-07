@@ -39,6 +39,47 @@ const PostController = {
         } catch (err) {
             next(err);
         }
+    },
+    getPost: async (req, res, next) => {
+        try {
+            const { id } = req.params;
+            const userId = req.user.userId;
+
+            if (!id) {
+                return res.status(400).json({ message: "ID-ul postării lipsește." });
+            }
+
+            const result = await PostService.getPostDetails(id, userId);
+
+            if (!result.post) return res.status(404).json({ message: "Postare negăsită" });
+
+            res.status(200).json(result);
+        } catch (err) {
+            next(err);
+        }
+    },
+    postComment: async (req, res, next) => {
+        try {
+            const { id } = req.params;
+            const { text } = req.body;
+            const userId = req.user.userId;
+            const comments = await PostService.addComment(id, userId, text);
+
+            res.status(201).json({ message: "Comentariu adăugat!", comments });
+        } catch (err) {
+            next(err);
+        }
+    },
+    deleteComment: async (req, res, next) => {
+        try {
+            const { postId, commentId } = req.params;
+            const userId = req.user.userId;
+            const updatedComments = await PostService.deleteComment(postId, commentId, userId);
+
+            res.status(200).json({ message: "Comentariu șters!", updatedComments });
+        } catch (err) {
+            next(err);
+        }
     }
 };
 

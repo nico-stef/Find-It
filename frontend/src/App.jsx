@@ -5,6 +5,7 @@ import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import EditProfile from "./pages/EditProfile";
+import PostDetails from "./pages/PostDetails";
 import { Toaster } from "react-hot-toast";
 import ProtectedRoutes from './routes/ProtectedRoutes';
 
@@ -25,6 +26,7 @@ function App() {
               <Route path="home" element={<Home />} />
               <Route path="profile" element={<Profile />} />
               <Route path="editProfile" element={<EditProfile />} />
+              <Route path="/post/:id" element={<PostDetails />} />
             </Route>
           </Route>
         </Routes>

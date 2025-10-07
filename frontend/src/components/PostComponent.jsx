@@ -1,7 +1,7 @@
 import "../styles/post.css";
 import { FaRegCalendarAlt } from "react-icons/fa";
 
-const PostComponent = ({ type, images, title, location, dateTime, description }) => {
+const PostComponent = ({ type, images, title, location, dateTime, description, onClick }) => {
     const firstImage = Array.isArray(images) && images.length > 0 ? images[0] : null;
     const displayDate = dateTime
         ? new Date(dateTime).toLocaleDateString("ro-RO", {
@@ -14,9 +14,9 @@ const PostComponent = ({ type, images, title, location, dateTime, description })
     const typeColor = type === "found" ? "orange" : type === "lost" ? "red" : "gray";
 
     return (
-        <div className="post-card">
+        <div className="post-card" onClick={onClick}>
             <div className="type-indicator" style={{ backgroundColor: typeColor }}>
-                {type}
+                {type == "lost" ? "Pierdut" : "Găsit"}
             </div>
 
             {firstImage ? (
@@ -42,10 +42,11 @@ const PostComponent = ({ type, images, title, location, dateTime, description })
                                 📍
                                 {location}
                             </span>
-                            <span className="card-date">
+                            {dateTime && (<span className="card-date">
                                 <FaRegCalendarAlt color="blue" size={14} />
                                 {displayDate}
-                            </span>
+                            </span>)}
+
                         </div>
                     </div>
                 </div>

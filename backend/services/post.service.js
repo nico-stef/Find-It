@@ -3,6 +3,7 @@ import { createPublicError } from "../utils/errors.js";
 import getCoordsFromPlaceId from "../utils/getCoordsFromPlaceId.js";
 import uploadFilesToS3 from "../utils/uploadFilesToS3.js";
 import generateSignedUrls from "../utils/generateSignedURLs.js";
+import mongoose from "mongoose";
 
 // data in mongo este salvata in format UTC, iar de pe frontend, pentru comparare, vine data locala
 function getDateRangeForDay(dateString) {
@@ -72,6 +73,54 @@ const PostService = {
         }
 
         return { posts, totalPages };
+    },
+    getPostDetails: async (postId, user_id) => {
+        const post = await postRepository.finOneById(postId);
+        if (!post) throw new Error("Postare negăsită");
+
+        post.images = await generateSignedUrls(post.images);
+
+        //post.userId este un ObjectId Mongoose, user_id este string => nu vor da egal
+        const isOwner = post.userId.toString() === user_id.toString();
+
+        // convertim documentul mongoose intr-un obiect JS (fara campurile $__, $isNew, _doc.)
+        const postObj = post.toObject();
+        const { userId, __v, ...postWithoutUserId } = postObj;
+
+        return {
+            post: postWithoutUserId,
+            isOwner
+        };
+    },
+    addComment: async (postId, userId, text) => {
+        if (!text || text.trim() === "") {
+            throw createPublicError("Comentariul nu poate fi gol.", 400);
+        }
+
+        const comments = await postRepository.addComment(postId, userId, text);
+
+        if (!comments) {
+            throw createPublicError("Postarea nu a fost găsită.", 404);
+        }
+
+        return comments;
+    },
+    deleteComment: async (postId, commentId, currentUserId) => {
+        const comment = await postRepository.findComment(postId, commentId);
+        if (!comment) {
+            throw createPublicError("Comentariul nu a fost găsit.", 404);
+        }
+        //nu ai voie sa stergi comentariul altcuiva
+        if (comment.userId._id.toString() !== currentUserId) {
+            throw createPublicError("Nu poți șterge comentariul altcuiva", 403);
+        }
+
+        const comments = await postRepository.deleteComment(postId, commentId);
+        if (!comments) {
+            throw createPublicError("Postarea nu a fost găsită.", 404);
+        }
+
+        return comments;
     }
 
 };

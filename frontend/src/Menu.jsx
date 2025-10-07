@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import menuImage from "./assets/menuImage2.png";
 import './styles/menu.css'
 
-const options = ["Home", "Map", "Profile"];
+const options = ["Home", "Profile"];
 
 const AppMenu = () => {
   return (

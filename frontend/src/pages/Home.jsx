@@ -29,7 +29,6 @@ const Home = () => {
 
       setPosts(res.data.posts)
       setTotalPages(res.data.totalPages);
-      setPage(1);
     } catch (err) {
       console.error("Error fetching posts:", err);
     }
@@ -126,7 +125,7 @@ const Home = () => {
           )}
         </div>
 
-        <button className="search-btn" onClick={getYourPosts}>Caută</button>
+        <button className="search-btn" onClick={() => { getYourPosts(); setPage(1); }}>Caută</button>
       </div>
 
       <div style={{ display: "flex", gap: "2rem", justifyContent: 'space-evenly', flexWrap: "wrap", margin: "2rem" }}>
@@ -140,6 +139,7 @@ const Home = () => {
               images={post.images}
               dateTime={post.dateTime}
               description={post.description}
+              onClick={() => navigate(`/post/${post._id}`)}
             />
           ))
         ) : (

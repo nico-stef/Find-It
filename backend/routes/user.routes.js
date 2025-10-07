@@ -16,5 +16,6 @@ router.get("/checkIfAuth", authMiddleware, UserController.checkIfAuth);
 router.get("/profile", authMiddleware, UserController.getUserInfo);
 router.patch("/profile", authMiddleware, upload.single('image'), UserController.updateUserInfo);
 router.delete("/profile", authMiddleware, UserController.deleteUser);
+router.get("/me", authMiddleware, UserController.getUserId);
 
 export default router;
