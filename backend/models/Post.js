@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const postSchema = new mongoose.Schema({
-    type: { type: String, enum: ["lost", "found"], required: true },
+    type: { type: String, enum: ["lost", "found", "resolved"], required: true },
     title: { type: String, required: true, trim: true },
     location: { //e un obiect singular, spre deosebire de comments care e array de obiecte
         address: { type: String, required: true }, //denumirea locatiei in cuvinte

@@ -121,8 +121,27 @@ const PostService = {
         }
 
         return comments;
-    }
+    },
+    markPostAsResolved: async (postId, currentUserId) => {
+        const post = await postRepository.finOneById(postId);
 
+        if (!post) throw createPublicError("Postarea nu există", 404);
+
+        if (post.userId.toString() !== currentUserId) //post.userId e returnat de tip ObjectId
+            throw createPublicError("Nu poți șterge postarea altcuiva", 403);
+
+        await postRepository.markAsResolved(postId);
+    },
+    deletePost: async (postId, currentUserId) => {
+        const post = await postRepository.finOneById(postId);
+
+        if (!post) throw createPublicError("Postarea nu există", 404);
+
+        if (post.userId.toString() !== currentUserId) //post.userId e returnat de tip ObjectId
+            throw createPublicError("Nu poți șterge postarea altcuiva", 403);
+
+        await postRepository.deletePost(postId);
+    }
 };
 
 export default PostService;

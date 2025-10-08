@@ -11,12 +11,12 @@ const PostComponent = ({ type, images, title, location, dateTime, description, o
         })
         : "";
 
-    const typeColor = type === "found" ? "orange" : type === "lost" ? "red" : "gray";
+    const typeColor = type === "found" ? "orange" : type === "lost" ? "red" : "#45a049";
 
     return (
         <div className="post-card" onClick={onClick}>
             <div className="type-indicator" style={{ backgroundColor: typeColor }}>
-                {type == "lost" ? "Pierdut" : "Găsit"}
+                {type == "lost" ? "Pierdut" : type == "found" ? "Găsit" : "Rezolvat"}
             </div>
 
             {firstImage ? (

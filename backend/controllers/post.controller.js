@@ -80,6 +80,30 @@ const PostController = {
         } catch (err) {
             next(err);
         }
+    },
+    updateAsResolved: async (req, res, next) => {
+        try {
+            const { postId } = req.params;
+            const userId = req.user.userId;
+
+            await PostService.markPostAsResolved(postId, userId);
+
+            res.status(200).json({ message: "Postarea a fost marcată ca rezolvată" });
+        } catch (err) {
+            next(err);
+        }
+    },
+    deletePost: async (req, res, next) => {
+        try {
+            const { postId } = req.params;
+            const userId = req.user.userId;
+
+            await PostService.deletePost(postId, userId);
+
+            res.status(204).json({ message: "Postarea a fost stearsa." });
+        } catch (err) {
+            next(err);
+        }
     }
 };
 

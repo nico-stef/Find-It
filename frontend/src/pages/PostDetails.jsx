@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { toast } from "react-hot-toast";
+import { useNavigate } from 'react-router-dom';
 
 const PostDetails = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -13,6 +14,7 @@ const PostDetails = () => {
     const [showInput, setShowInput] = useState(false);
     const [newComment, setNewComment] = useState("");
     const [currentUserId, setCurrentUserId] = useState(null);
+    const navigate = useNavigate();
 
     const getPost = async () => {
         try {
@@ -76,17 +78,15 @@ const PostDetails = () => {
         }
     }
 
-    const handleDeleteComment = async (commentId) => {
+    const handleDeleteComment = (commentId) => {
         const ok = window.confirm("Sigur vrei să ștergi acest comentariu?");
         if (!ok) return;
 
         handleDelete(commentId)
     };
 
-
     const handleSubmitButton = async () => {
         try {
-            const text = newComment.trim();
             const response = await axios.post(`http://localhost:3000/post/${id}/comment`,
                 { text: newComment.trim() },
                 { withCredentials: true }
@@ -104,8 +104,66 @@ const PostDetails = () => {
         }
     }
 
+    const hanldleOnMarkResolved = (postId) => {
+        const ok = window.confirm("Marchezi această postare ca rezolvată?");
+        if (!ok) return;
+
+        onMarkResolved(postId)
+    };
+
+    const onMarkResolved = async (postId) => {
+        try {
+            await axios.patch(`http://localhost:3000/post/${postId}`,
+                {},
+                { withCredentials: true }
+            );
+            setPost(prevPost => ({
+                ...prevPost,
+                type: 'resolved'
+            }));
+            toast.success("Status actualizat!");
+        } catch (err) {
+            console.error(err);
+            toast.error(err?.response?.data?.message || "Something went wrong.");
+        }
+    }
+
+    const handleOnDelete = (postId) => {
+        const ok = window.confirm("Sigur vrei să ștergi postarea?");
+        if (!ok) return;
+
+        onDelete(postId)
+    }
+
+    const onDelete = async (postId) => {
+        try {
+            await axios.delete(`http://localhost:3000/post/${postId}`,
+                { withCredentials: true }
+            );
+            toast.success("Postare ștearsă cu succes!");
+            navigate(-1);
+        } catch (err) {
+            console.error(err);
+            toast.error(err?.response?.data?.message || "Something went wrong.");
+        }
+    }
+
     return (
         <div className="container-info">
+            {isOwner && (
+                <div className="owner-actions">
+                    <button onClick={() => handleOnDelete(post._id)}>Șterge postarea</button>
+                    <button //daca a fost deja marcat ca rezolvat, nu mai apare butonul
+                        style={{
+                            opacity: post.type === 'resolved' ? 0 : 1,
+                            pointerEvents: post.type === 'resolved' ? 'none' : 'auto'
+                        }}
+                        onClick={() => hanldleOnMarkResolved(post._id)}
+                    >
+                        Marchează ca rezolvat
+                    </button>
+                </div>
+            )}
             {/* Carousel imagine */}
             {post && post.images.length > 0 && (<div className="images-container">
                 <button className="nav-btn" onClick={goPrev}>◀</button>
@@ -117,12 +175,14 @@ const PostDetails = () => {
 
             {post && (
                 <div className='details-container'>
-                    <div className={`post-type ${post.type === 'lost' ? 'lost' : 'found'}`}>
-                        {post.type === 'lost' ? 'Pierdut' : 'Găsit'}
+                    <div
+                        className={`post-type ${post.type === 'lost' ? 'lost' : post.type === 'found' ? 'found' : 'resolved'}`}>
+                        {post.type === 'lost' ? 'Pierdut' : post.type === 'found' ? 'Găsit' : 'Rezolvat'}
                     </div>
 
 
-                    <div className='details' style={{ gap: '2rem' }}>
+
+                    <div className='details' style={{ gap: '1rem' }}>
                         <h4 className='title'>{post.title}</h4>
                         <h4>📍 {post.location?.address}</h4>
                         {post.dateTime && <h4><FaRegCalendarAlt color="blue" size={14} /> {new Date(post.dateTime).toLocaleString()}</h4>}
@@ -130,7 +190,7 @@ const PostDetails = () => {
                         <div>Contact: {post.contact}</div>
                     </div>
 
-                    <div className='details'>
+                    <div className='details' style={{ marginBottom: '2rem' }}>
                         <div className='comments-header'>
                             <h4>Comentarii</h4>
                             <button className='btn-add-comment' onClick={handleAddCommentClick}>

@@ -40,6 +40,8 @@ const PostRepository = {
     },
     async finOneById(id) {
         const post = await Post.findById(id);
+        if (!post) return null;
+
         await post.populate("comments.userId", "firstName lastName email");
         return post;
     },
@@ -75,6 +77,12 @@ const PostRepository = {
         await post.populate("comments.userId", "firstName lastName email");
 
         return post.comments;
+    },
+    async markAsResolved(postId) {
+        await Post.findByIdAndUpdate(postId, { type: "resolved" });
+    },
+    async deletePost(postId) {
+        await Post.findByIdAndDelete(postId);
     }
 };
 

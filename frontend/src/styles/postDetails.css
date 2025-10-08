@@ -81,6 +81,10 @@
   background-color: orange;
 }
 
+.post-type.resolved {
+  background-color: #52c41a;
+}
+
 /* Details Section */
 .details-container{
   width: 50vw;
@@ -201,4 +205,57 @@ h4{
 
 .btn-delete-comment:hover {
   background-color: #c53030;
+}
+
+/* butoanele care apar doar daca e postarea ta  */
+.owner-actions {
+    display: flex;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border: 2px solid #3b82f6;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+}
+
+.owner-actions button {
+  flex: 1;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  color: white;
+}
+
+.owner-actions button:first-child {
+  background-color: #dc3545;
+}
+
+.owner-actions button:first-child:hover {
+  background-color: #c82333;
+  box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+}
+
+.owner-actions button:last-child {
+  background-color: #4CAF50;
+}
+
+.owner-actions button:last-child:hover {
+  background-color: #45a049;
+  box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+}
+
+/* Responsiv pentru ecrane mici */
+@media (max-width: 600px) {
+    .owner-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .owner-actions button {
+        width: 100%;
+    }
 }

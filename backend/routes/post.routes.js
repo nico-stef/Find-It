@@ -15,5 +15,7 @@ router.get("/posts", authMiddleware, PostController.getByFilters);
 router.get("/post/:id", authMiddleware, PostController.getPost);
 router.post("/post/:id/comment", authMiddleware, PostController.postComment);
 router.delete("/post/:postId/comment/:commentId", authMiddleware, PostController.deleteComment);
+router.patch("/post/:postId", authMiddleware, PostController.updateAsResolved);
+router.delete("/post/:postId", authMiddleware, PostController.deletePost);
 
 export default router;
