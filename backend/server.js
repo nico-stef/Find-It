@@ -11,7 +11,10 @@ const app = express(); //express application instance = serverul web
 app.use(express.json()); //middleware ce primeste req body in formt JSON si il transforma in obiect JS
 
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: [
+        "http://localhost:5173",
+        "https://find-m8uiqb9vj-nicos-projects-761d5626.vercel.app"
+    ],
     credentials: true   // permite cookies
 }));
 
