@@ -1,7 +1,7 @@
+const API_URL = import.meta.env.VITE_API_URL;
 import { useState } from "react";
 import axios from 'axios';
 import "../styles/login.css";
-import background from "../assets/background-login.avif";
 import logoImage from "../assets/menuImage2.png";
 import { Link } from "react-router-dom";
 import {
@@ -29,7 +29,7 @@ const Signup = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`http://localhost:3000/register`, {
+      const response = await axios.post(`${API_URL}/register`, {
         email, password, firstName, lastName, phone: phoneNumber, city
       });
 

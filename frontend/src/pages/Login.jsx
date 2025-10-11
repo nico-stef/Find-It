@@ -1,3 +1,4 @@
+const API_URL = import.meta.env.VITE_API_URL;
 import { useState } from "react";
 import axios from 'axios';
 import "../styles/login.css";
@@ -17,7 +18,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:3000/login`,
+        `${API_URL}/login`,
         { email, password },
         { withCredentials: true } //pentru a trimite si cookie
       );

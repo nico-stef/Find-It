@@ -1,3 +1,4 @@
+const API_URL = import.meta.env.VITE_API_URL;
 import { useState, useEffect, useRef } from "react";
 import '../styles/adForm.css'
 import { FaUpload } from 'react-icons/fa'
@@ -54,7 +55,7 @@ const AdFormComponent = ({ onClose }) => {
                 return;
             }
             try {
-                const res = await axios.get("http://localhost:3000/locationsAutocomplete", {
+                const res = await axios.get(`${API_URL}/locationsAutocomplete`, {
                     params: { input: value },
                     withCredentials: true
                 });
@@ -120,7 +121,7 @@ const AdFormComponent = ({ onClose }) => {
                 });
             }
 
-            const response = await axios.post(`http://localhost:3000/post`,
+            const response = await axios.post(`${API_URL}/post`,
                 dataToSend,
                 {
                     headers: {

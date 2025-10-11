@@ -1,3 +1,4 @@
+const API_URL = import.meta.env.VITE_API_URL;
 import '../styles/home.css';
 import LostBag from '../assets/lost-bag.avif';
 import { useNavigate } from 'react-router-dom';
@@ -23,7 +24,7 @@ const Home = () => {
   const getYourPosts = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:3000/posts?type=${type}&location=${encodeURIComponent(location)}&date=${date}&page=${page}&limit=${limit}`,
+        `${API_URL}/posts?type=${type}&location=${encodeURIComponent(location)}&date=${date}&page=${page}&limit=${limit}`,
         { withCredentials: true }
       );
 
@@ -42,7 +43,7 @@ const Home = () => {
     try {
       const value = e.target.value;
       setLocation(value);
-      const res = await axios.get("http://localhost:3000/locationsAutocomplete", {
+      const res = await axios.get(`${API_URL}/locationsAutocomplete`, {
         params: { input: value },
         withCredentials: true
       });

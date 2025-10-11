@@ -1,3 +1,4 @@
+const API_URL = import.meta.env.VITE_API_URL;
 import { Navigate, Outlet } from 'react-router-dom';
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -10,7 +11,7 @@ const ProtectedRoutes = () => {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                const response = await axios.get("http://localhost:3000/checkIfAuth", {
+                const response = await axios.get(`${API_URL}/checkIfAuth`, {
                     withCredentials: true
                 });
                 setIsAuth(response.data.authenticated);

@@ -1,3 +1,4 @@
+const API_URL = import.meta.env.VITE_API_URL;
 import '../styles/PostDetails.css';
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -19,7 +20,7 @@ const PostDetails = () => {
     const getPost = async () => {
         try {
             const res = await axios.get(
-                `http://localhost:3000/post/${id}`,
+                `${API_URL}/post/${id}`,
                 { withCredentials: true }
             );
 
@@ -33,7 +34,7 @@ const PostDetails = () => {
     const getUserId = async () => {
         try {
             const res = await axios.get(
-                `http://localhost:3000/me`,
+                `${API_URL}/me`,
                 { withCredentials: true }
             );
 
@@ -63,7 +64,7 @@ const PostDetails = () => {
     const handleDelete = async (commentToDelete) => {
         try {
             const res = await axios.delete(
-                `http://localhost:3000/post/${id}/comment/${commentToDelete}`,
+                `${API_URL}/post/${id}/comment/${commentToDelete}`,
                 { withCredentials: true }
             );
 
@@ -87,7 +88,7 @@ const PostDetails = () => {
 
     const handleSubmitButton = async () => {
         try {
-            const response = await axios.post(`http://localhost:3000/post/${id}/comment`,
+            const response = await axios.post(`${API_URL}/post/${id}/comment`,
                 { text: newComment.trim() },
                 { withCredentials: true }
             );
@@ -113,7 +114,7 @@ const PostDetails = () => {
 
     const onMarkResolved = async (postId) => {
         try {
-            await axios.patch(`http://localhost:3000/post/${postId}`,
+            await axios.patch(`${API_URL}/post/${postId}`,
                 {},
                 { withCredentials: true }
             );
@@ -137,7 +138,7 @@ const PostDetails = () => {
 
     const onDelete = async (postId) => {
         try {
-            await axios.delete(`http://localhost:3000/post/${postId}`,
+            await axios.delete(`${API_URL}/post/${postId}`,
                 { withCredentials: true }
             );
             toast.success("Postare ștearsă cu succes!");

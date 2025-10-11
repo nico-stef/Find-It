@@ -1,5 +1,5 @@
+const API_URL = import.meta.env.VITE_API_URL;
 import "../styles/profile.css";
-import profileImage from "../assets/default-profile.jpg";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import { useEffect, useState } from "react";
@@ -20,7 +20,7 @@ const Profile = () => {
     const getYourPosts = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/posts/me?page=${page}&limit=${limit}`,
+          `${API_URL}/posts/me?page=${page}&limit=${limit}`,
           { withCredentials: true }
         );
 
@@ -37,7 +37,7 @@ const Profile = () => {
   const getUserInfo = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:3000/profile`,
+        `${API_URL}/profile`,
         { withCredentials: true }
       );
 

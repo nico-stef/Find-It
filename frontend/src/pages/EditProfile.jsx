@@ -1,3 +1,4 @@
+const API_URL = import.meta.env.VITE_API_URL;
 import '../styles/EditProfile.css';
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -24,7 +25,7 @@ const EditProfile = () => {
 
         try {
             const response = await axios.post(
-                `http://localhost:3000/logout`,
+                `${API_URL}/logout`,
                 {},
                 { withCredentials: true } //pentru a trimite si cookie
             );
@@ -41,7 +42,7 @@ const EditProfile = () => {
         const getUserInfo = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:3000/profile`,
+                    `${API_URL}/profile`,
                     { withCredentials: true }
                 )
                 setUserInfo(response.data);
@@ -75,7 +76,7 @@ const EditProfile = () => {
             dataToSend.append("city", userInfo.city);
             dataToSend.append("image", userInfo.avatarFile);
 
-            const response = await axios.patch(`http://localhost:3000/profile`,
+            const response = await axios.patch(`${API_URL}/profile`,
                 dataToSend,
                 {
                     headers: {
@@ -100,7 +101,7 @@ const EditProfile = () => {
         if (!confirmed) return;
 
         try {
-            const response = await axios.delete("http://localhost:3000/profile", {
+            const response = await axios.delete(`${API_URL}/profile`, {
                 withCredentials: true
             });
 
