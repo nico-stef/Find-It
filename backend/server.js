@@ -10,7 +10,7 @@ import PostRoutes from './routes/post.routes.js';
 const app = express(); //express application instance = serverul web 
 app.use(express.json()); //middleware ce primeste req body in formt JSON si il transforma in obiect JS
 
-allowedOrigins = [
+const allowedOrigins = [
     "http://localhost:5173",
     "https://find-m8uiqb9vj-nicos-projects-761d5626.vercel.app"
 ]
