@@ -1,5 +1,5 @@
 const API_URL = import.meta.env.VITE_API_URL;
-import '../styles/EditProfile.css';
+import '../styles/editProfile.css';
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
