@@ -18,11 +18,11 @@ allowedOrigins = [
 //cors nu poate primi un array deci folosim aceasta functia care verifica daca origin se afla in array
 app.use(cors({
     origin: function (origin, callback) {
-        // permit requests cu origin null (ex: curl, postman)
+        // permit requests fara header Origin (ex: curl, postman)
         if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true); //request permis, asa e sintaxa functiei de calbback de la cors
+            callback(null, true);  //request permis, asa e sintaxa functiei de calbback de la cors
         } else {
-            callback(new Error('Not allowed by CORS'));
+            callback(new Error('Not allowed by CORS')); // request blocat
         }
     },
     credentials: true
