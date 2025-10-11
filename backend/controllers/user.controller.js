@@ -25,8 +25,8 @@ const UserController = {
 
             res.cookie("token", token, {
                 httpOnly: true,
-                secure: false,       // true in productie cu HTTPS
-                sameSite: "lax",
+                secure: true,       // true in productie cu HTTPS
+                sameSite: "none",   // cand cererile vin de pe alt domeniu
                 maxAge: 24 * 60 * 60 * 1000 // 1 zi
             });
 
