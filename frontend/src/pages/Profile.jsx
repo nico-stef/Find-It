@@ -8,6 +8,7 @@ import PostComponent from "../components/PostComponent";
 import AdFormComponent from "../components/AdFormComponent";
 
 const Profile = () => {
+  const [userInfo, setUserInfo] = useState(null);
   const [activeTab, setActiveTab] = useState("posts");
   const [showForm, setShowForm] = useState(false);
   const [yourPosts, setYourPosts] = useState(null);
@@ -33,33 +34,54 @@ const Profile = () => {
     getYourPosts();
   }, [page, limit]);
 
+  const getUserInfo = async () => {
+    try {
+      const res = await axios.get(
+        `http://localhost:3000/profile`,
+        { withCredentials: true }
+      );
+
+      setUserInfo(res.data)
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   useEffect(() => {
-    console.log("FormData s-a schimbat:", yourPosts);
-  }, [yourPosts]);
+    getUserInfo();
+  }, []);
+
+
+  useEffect(() => {
+    console.log(userInfo);
+  }, [userInfo]);
 
   return (
     <div>
       <div className="profile-details">
-        <img src={profileImage} alt="Profile picture" className="profile-img" />
-        <div style={{ flex: 1 }}>
-          <h2>Ion Popescu</h2>
-          <ul className="account-details">
-            <li className="detail-li">
-              <FaEnvelope />
-              ion@gmail.com
-            </li>
-            <li className="detail-li">
-              <FaMapMarkerAlt />
-              Bucuresti
-            </li>
-            <li className="detail-li">
-              <FaCalendar />
-              Membru din 2025
-            </li>
-          </ul>
+        {userInfo && (
+          <>
+            <img src={userInfo.avatar} alt="Profile picture" className="profile-img" />
+            <div style={{ flex: 1 }}>
+              <h2>{userInfo.firstName} {userInfo.lastName}</h2>
+              <ul className="account-details">
+                <li className="detail-li">
+                  <FaEnvelope />
+                  {userInfo.email}
+                </li>
+                <li className="detail-li">
+                  <FaMapMarkerAlt />
+                  {userInfo.city}
+                </li>
+                <li className="detail-li">
+                  <FaCalendar />
+                  Membru din {new Date(userInfo.createdAt).getFullYear()}
+                </li>
+              </ul>
+            </div>
+          </>
+        )}
 
-        </div>
 
         <Link to="/editProfile" className="btn-profile">
           Setări profil
@@ -87,12 +109,6 @@ const Profile = () => {
           onClick={() => setActiveTab("posts")}
         >
           Postările tale
-        </button>
-        <button
-          className={`switch-button ${activeTab === "activity" ? "active" : ""}`}
-          onClick={() => setActiveTab("activity")}
-        >
-          Activitate
         </button>
       </div>
 

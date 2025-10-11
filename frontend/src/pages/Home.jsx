@@ -85,6 +85,7 @@ const Home = () => {
             <option value="">Toate</option>
             <option value="lost">Pierdut</option>
             <option value="found">Găsit</option>
+            <option value="resolved">Rezolvat</option>
           </select>
         </div>
 

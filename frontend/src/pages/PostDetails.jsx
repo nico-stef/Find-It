@@ -225,6 +225,16 @@ const PostDetails = () => {
                                             </button>
                                         )}
                                     </div>
+                                    <div className="comment-date">
+                                        {new Date(comment.createdAt).toLocaleString('ro-RO', {
+                                            day: 'numeric',
+                                            month: 'numeric',
+                                            year: 'numeric',
+                                            hour: '2-digit',
+                                            minute: '2-digit'
+                                        })}
+                                    </div>
+
                                     <div className='comment-text'>
                                         {comment.text}
                                     </div>

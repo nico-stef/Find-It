@@ -57,7 +57,8 @@ const UserService = {
             email: user.email,
             phone: user.phone,
             city: user.city,
-            avatar: user.avatar
+            avatar: user.avatar,
+            createdAt: user.createdAt
         };
     },
     async updateById(userId, userData, file) {

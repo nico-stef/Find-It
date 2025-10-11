@@ -82,15 +82,16 @@
   padding: 0.7rem 2.5rem;
   color: #333;
   transition: all 0.2s ease;
+  border-radius: 10px;
 }
 
-.switch-button:first-child {
-  border-radius: 8px 0 0 8px; /* rotunjim primul buton/copil in partea stanga*/
-}
+/* .switch-button:first-child {
+  border-radius: 8px 0 0 8px;
+} */
 
-.switch-button:last-child {
-  border-radius: 0 8px 8px 0; /* rotunjim al 2lea buton/copil in partea dreapta */
-}
+/* .switch-button:last-child {
+  border-radius: 0 8px 8px 0;
+} */
 
 .switch-button:hover {
   background: #f3f3f6; /* usor gri la hover */

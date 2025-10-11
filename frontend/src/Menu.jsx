@@ -14,18 +14,7 @@ const AppMenu = () => {
             {item}
           </Link>
         ))}
-        <input
-          type="text"
-          className="menu-search"
-          placeholder="Search by key words..."
-        />
       </div>
-      {/* 
-      <div className="menu-right">
-        <Link to="/profile">
-          <div >N</div>
-        </Link>
-      </div> */}
     </nav>
   );
 };
