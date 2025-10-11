@@ -10,12 +10,22 @@ import PostRoutes from './routes/post.routes.js';
 const app = express(); //express application instance = serverul web 
 app.use(express.json()); //middleware ce primeste req body in formt JSON si il transforma in obiect JS
 
+origin = [
+    "http://localhost:5173",
+    "https://find-m8uiqb9vj-nicos-projects-761d5626.vercel.app"
+]
+
+//cors nu poate primi un array deci folosim aceasta functia care verifica daca origin se afla in array
 app.use(cors({
-    origin: [
-        "http://localhost:5173",
-        "https://find-m8uiqb9vj-nicos-projects-761d5626.vercel.app"
-    ],
-    credentials: true   // permite cookies
+    origin: function (origin, callback) {
+        // permit requests cu origin null (ex: curl, postman)
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true); //request permis, asa e sintaxa functiei de calbback de la cors
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true
 }));
 
 app.use(cookieParser());
