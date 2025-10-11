@@ -25,9 +25,7 @@ const PostComponent = ({ type, images, title, location, dateTime, description, o
                 <div style={{
                     display: 'flex',
                     justifyContent: 'center',  // vertical
-                    height: '12rem',           // aceeași ca imaginea
                     width: '100%',
-                    height: '100%',
                     alignItems: 'center'
                 }}>
                     <div style={{ padding: "1rem" }}>
