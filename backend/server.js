@@ -12,7 +12,7 @@ app.use(express.json()); //middleware ce primeste req body in formt JSON si il t
 
 const allowedOrigins = [
     "http://localhost:5173",
-    "https://find-it-self.vercel.app/"
+    "https://find-it-self.vercel.app"
 ]
 
 //cors nu poate primi un array deci folosim aceasta functia care verifica daca origin se afla in array
