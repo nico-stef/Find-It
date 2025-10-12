@@ -88,18 +88,17 @@
 /* Details Section */
 .details-container{
   width: 50vw;
-  height: 33vw;
 }
 
 .details {
-    background: white;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    display: grid;
-    gap: 1rem;
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  display: grid;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  gap: 2rem;
 }
 
 h4{
@@ -107,11 +106,18 @@ h4{
 }
 
 .details .title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #1a202c;
-    margin: 0;
-    text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin: 0;
+  text-align: center;
+}
+
+.detail-title {
+  font-size: 1rem;
+  color: #555;
+  font-style: italic;
+  margin: 0.4rem 0;
 }
 
 /* design pt comentarii  */

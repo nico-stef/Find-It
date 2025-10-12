@@ -26,7 +26,7 @@ app.use(cors({
         }
     },
     credentials: true,
-    allowedHeaders: ['Content-Type', 'Authorization']
+    allowedHeaders: ['Content-Type', 'Authorization'] //specifica ce headere poate trimite browser-ul in request-uri non-simple (ex: Content-Type: application/json, Authorization)
 }));
 
 app.use(cookieParser());

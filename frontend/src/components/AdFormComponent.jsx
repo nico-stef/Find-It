@@ -4,6 +4,7 @@ import '../styles/adForm.css'
 import { FaUpload } from 'react-icons/fa'
 import axios from 'axios';
 import { toast } from "react-hot-toast";
+import GridLoader from "react-spinners/GridLoader";
 
 const AdFormComponent = ({ onClose }) => {
     const initialFormData = {
@@ -23,6 +24,7 @@ const AdFormComponent = ({ onClose }) => {
     const [locationError, setLocationError] = useState("");
     const suggestionsRef = useRef(null);
     const [showTimeError, setShowTimeError] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     //cand deschidem modalul cu formularul, adaugam o clasa, ca atunci cand e activa, overflow-ul sa fie hidden si sa nu exista scrollbar
     useEffect(() => {
@@ -89,6 +91,7 @@ const AdFormComponent = ({ onClose }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
 
         if (!selectedPlaceId) {
             setLocationError("Te rugăm să alegi o locație din lista de sugestii!");
@@ -101,6 +104,7 @@ const AdFormComponent = ({ onClose }) => {
             dataToSend.append("type", formData.type);
             dataToSend.append("title", formData.title);
             dataToSend.append("place_id", selectedPlaceId);
+            dataToSend.append("location", formData.location);
 
             let dateTimeValue = null;
             if (formData.date) {// daca exista data, o alipim la ora aleasa. daca nu a fost aleasa o ora, se salveaza mizeul noptii
@@ -138,6 +142,8 @@ const AdFormComponent = ({ onClose }) => {
         } catch (error) {
             console.log(error);
             toast.error(error?.response?.data?.message || "Something went wrong.");
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -146,166 +152,178 @@ const AdFormComponent = ({ onClose }) => {
     }, [formData])
 
     return (
+
+
         <div className="form-wrapper">
-            <button type="button" className="back-btn" onClick={onClose}>
-                ← Înapoi
-            </button>
-            <form onSubmit={handleSubmit} className="form-container">
+            {loading ? (
+                <GridLoader
+                    color="#562db9"
+                    loading
+                    size={20}
+                />
+            ) : (
+                <>
+                    <button type="button" className="back-btn" onClick={onClose}>
+                        ← Înapoi
+                    </button>
+                    <form onSubmit={handleSubmit} className="form-container">
 
-                <h2>Postează un anunț</h2>
+                        <h2>Postează un anunț</h2>
 
-                <div className="row">
-                    <label>Tip</label>
-                    <select name="type" value={formData.type} onChange={handleChange}>
-                        <option value="lost">Pierdut</option>
-                        <option value="found">Găsit</option>
-                    </select>
-                </div>
+                        <div className="row">
+                            <label>Tip</label>
+                            <select name="type" value={formData.type} onChange={handleChange}>
+                                <option value="lost">Pierdut</option>
+                                <option value="found">Găsit</option>
+                            </select>
+                        </div>
 
-                <div className="row">
-                    <label>Titlu</label>
-                    <input
-                        type="text"
-                        name="title"
-                        value={formData.title}
-                        onChange={handleChange}
-                        placeholder="Ex: Portofel negru"
-                        required
-                    />
-                </div>
+                        <div className="row">
+                            <label>Titlu</label>
+                            <input
+                                type="text"
+                                name="title"
+                                value={formData.title}
+                                onChange={handleChange}
+                                placeholder="Ex: Portofel negru"
+                                required
+                            />
+                        </div>
 
-                <div className="row">
-                    <label>Locație</label>
-                    <div className="input-location-wrapper" ref={suggestionsRef}>
-                        {locationError && <p className="error-message">{locationError}</p>}
-                        <input
-                            type="text"
-                            name="location"
-                            value={formData.location}
-                            onChange={handleChange}
-                            placeholder="Ex: București, Piața Unirii"
-                            required
-                        />
-                        {locationSuggestions.length > 0 && (
-                            <ul className="suggestions">
-                                {locationSuggestions.map((s) => (
-                                    <li
-                                        key={s.place_id}
-                                        onClick={() => {
-                                            setFormData((prev) => ({ ...prev, location: s.description }));
-                                            setSelectedPlaceId(s.place_id);
-                                            setLocationSuggestions([]);
-                                        }}
-                                    >
-                                        {s.description}
-                                    </li>
-                                ))}
-                            </ul>
-                        )}
-                    </div>
-                </div>
-
-                <div className="row">
-                    <label style={{ display: 'flex', flexDirection: 'column' }}>
-                        Data
-                        <span className="optional">(opțional)</span>
-                    </label>
-                    <input
-                        type="date"
-                        name="date"
-                        value={formData.date}
-                        onChange={handleChange}
-                    />
-                </div>
-
-                <div className="row">
-                    <label style={{ display: 'flex', flexDirection: 'column' }}>
-                        Ora
-                        <span className="optional">(opțional)</span>
-                    </label>
-                    <div className="input-location-wrapper">
-                        {showTimeError && (
-                            <p className="error-message">
-                                Trebuie să selectezi mai întâi data pentru a putea seta ora.
-                            </p>
-                        )}
-                        <input
-                            type="time"
-                            name="time"
-                            value={formData.time}
-                            onChange={handleChange}
-                            readOnly={!formData.date} //poate fi completat doar daca alegi o data
-                            onClick={handleTimeClick}
-                        />
-                    </div>
-                </div>
-
-                <div className="row">
-                    <label>Imagini <span className="optional">(opțional)</span></label>
-                    <input
-                        type="file"
-                        accept="image/*"
-                        multiple
-                        id="images"
-                        name="images"
-                        onChange={handleChange}
-                        className="customFileInput"
-                        style={{ display: 'none' }} // ascunde input-ul real
-                    />
-                    <div
-                        className="custom-file-label"
-                        onClick={() => document.getElementById('images').click()} //simuleaza un click pe input-ul real, care e ascuns pt ca e urat
-                    >
-                        {(!formData.images?.length) && (
-                            <>
-                                <FaUpload className="upload-icon" />
-                                <span className="upload-text">Alege fișier</span>
-                            </>
-                        )}
-
-
-                        {formData.images && formData.images.length > 0 && (
-                            <div className="preview-wrapper">
-                                {formData.images.map((file, index) => (
-                                    <img
-                                        key={index}
-                                        src={URL.createObjectURL(file)}
-                                        alt={file.name}
-                                        className="preview-img"
-                                    />
-                                ))}
+                        <div className="row">
+                            <label>Locație</label>
+                            <div className="input-location-wrapper" ref={suggestionsRef}>
+                                {locationError && <p className="error-message">{locationError}</p>}
+                                <input
+                                    type="text"
+                                    name="location"
+                                    value={formData.location}
+                                    onChange={handleChange}
+                                    placeholder="Ex: București, Piața Unirii"
+                                    required
+                                />
+                                {locationSuggestions.length > 0 && (
+                                    <ul className="suggestions">
+                                        {locationSuggestions.map((s) => (
+                                            <li
+                                                key={s.place_id}
+                                                onClick={() => {
+                                                    setFormData((prev) => ({ ...prev, location: s.description }));
+                                                    setSelectedPlaceId(s.place_id);
+                                                    setLocationSuggestions([]);
+                                                }}
+                                            >
+                                                {s.description}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
                             </div>
-                        )}
-                    </div>
-                </div>
+                        </div>
+
+                        <div className="row">
+                            <label style={{ display: 'flex', flexDirection: 'column' }}>
+                                Data
+                                <span className="optional">(opțional)</span>
+                            </label>
+                            <input
+                                type="date"
+                                name="date"
+                                value={formData.date}
+                                onChange={handleChange}
+                            />
+                        </div>
+
+                        <div className="row">
+                            <label style={{ display: 'flex', flexDirection: 'column' }}>
+                                Ora
+                                <span className="optional">(opțional)</span>
+                            </label>
+                            <div className="input-location-wrapper">
+                                {showTimeError && (
+                                    <p className="error-message">
+                                        Trebuie să selectezi mai întâi data pentru a putea seta ora.
+                                    </p>
+                                )}
+                                <input
+                                    type="time"
+                                    name="time"
+                                    value={formData.time}
+                                    onChange={handleChange}
+                                    readOnly={!formData.date} //poate fi completat doar daca alegi o data
+                                    onClick={handleTimeClick}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <label>Imagini <span className="optional">(opțional)</span></label>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                multiple
+                                id="images"
+                                name="images"
+                                onChange={handleChange}
+                                className="customFileInput"
+                                style={{ display: 'none' }} // ascunde input-ul real
+                            />
+                            <div
+                                className="custom-file-label"
+                                onClick={() => document.getElementById('images').click()} //simuleaza un click pe input-ul real, care e ascuns pt ca e urat
+                            >
+                                {(!formData.images?.length) && (
+                                    <>
+                                        <FaUpload className="upload-icon" />
+                                        <span className="upload-text">Alege fișier</span>
+                                    </>
+                                )}
 
 
-                <div className="row">
-                    <label>Descriere <span className="optional">(opțional)</span></label>
-                    <textarea
-                        name="description"
-                        value={formData.description}
-                        onChange={handleChange}
-                        placeholder="Detalii despre obiect..."
-                    />
-                </div>
+                                {formData.images && formData.images.length > 0 && (
+                                    <div className="preview-wrapper">
+                                        {formData.images.map((file, index) => (
+                                            <img
+                                                key={index}
+                                                src={URL.createObjectURL(file)}
+                                                alt={file.name}
+                                                className="preview-img"
+                                            />
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        </div>
 
-                <div className="row">
-                    <label>Date de contact</label>
-                    <input
-                        type="text"
-                        name="contact"
-                        value={formData.contact}
-                        onChange={handleChange}
-                        placeholder="Telefon, email, etc"
-                        required
-                    />
-                </div>
 
-                <button type="submit" className="submit-btn">
-                    Postează anunț
-                </button>
-            </form>
+                        <div className="row">
+                            <label>Descriere <span className="optional">(opțional)</span></label>
+                            <textarea
+                                name="description"
+                                value={formData.description}
+                                onChange={handleChange}
+                                placeholder="Detalii despre obiect..."
+                            />
+                        </div>
+
+                        <div className="row">
+                            <label>Detalii de contact</label>
+                            <input
+                                type="text"
+                                name="contact"
+                                value={formData.contact}
+                                onChange={handleChange}
+                                placeholder="Telefon, email, etc"
+                                required
+                            />
+                        </div>
+
+                        <button type="submit" className="submit-btn">
+                            Postează anunț
+                        </button>
+                    </form>
+                </>
+            )}
         </div>
     );
 }

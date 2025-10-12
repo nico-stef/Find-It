@@ -135,3 +135,9 @@
 .suggestions-list li:hover {
   background-color: #f0f0f0;
 }
+
+.error-message {
+    color: red;
+    font-size: 2rem;
+    margin-bottom: 4px;
+}

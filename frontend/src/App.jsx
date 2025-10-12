@@ -23,8 +23,8 @@ function App() {
           {/* Protected */}
           <Route element={<ProtectedRoutes />}>
             <Route element={<Layout />}>
-              <Route path="home" element={<Home />} />
-              <Route path="profile" element={<Profile />} />
+              <Route path="feed" element={<Home />} />
+              <Route path="profil" element={<Profile />} />
               <Route path="editProfile" element={<EditProfile />} />
               <Route path="/post/:id" element={<PostDetails />} />
             </Route>

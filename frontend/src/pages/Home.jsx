@@ -6,6 +6,7 @@ import AdFormComponent from "../components/AdFormComponent";
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import PostComponent from "../components/PostComponent";
+import GridLoader from "react-spinners/GridLoader";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -15,14 +16,22 @@ const Home = () => {
   const [location, setLocation] = useState("");
   const [locationSuggestions, setLocationSuggestions] = useState(null);
   const [selectedPlaceId, setSelectedPlaceId] = useState(null);
+  const [locationError, setLocationError] = useState("");
 
   const [posts, setPosts] = useState(null);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState("");
-  const limit = 10;
+  const limit = 6;
 
-  const getYourPosts = async () => {
+  const getPosts = async () => {
     try {
+      if (location && !selectedPlaceId) {
+        setLocationError("Te rugăm să alegi o locație din lista de sugestii!");
+        return;
+      }
+      setLocationError("");
+      setSelectedPlaceId(null);
+
       const res = await axios.get(
         `${API_URL}/posts?type=${type}&location=${encodeURIComponent(location)}&date=${date}&page=${page}&limit=${limit}`,
         { withCredentials: true }
@@ -36,8 +45,10 @@ const Home = () => {
   };
 
   useEffect(() => {
-    getYourPosts();
-  }, [page, limit]);
+    getPosts();
+    if (!showForm)
+      getPosts();
+  }, [page, limit, showForm]);
 
   const handleLocationSearch = async (e) => {
     try {
@@ -52,10 +63,6 @@ const Home = () => {
       console.error(err);
     }
   }
-
-  useEffect(() => {
-    console.log(posts)
-  }, [posts])
 
   return (
     <div>
@@ -76,6 +83,7 @@ const Home = () => {
       </div>
 
       <div className='filters'>
+        {locationError && <p className="error-message">{locationError}</p>}
         {/* Tip  */}
         <div className="filter">
           <label>Tip: </label>
@@ -127,7 +135,7 @@ const Home = () => {
           )}
         </div>
 
-        <button className="search-btn" onClick={() => { getYourPosts(); setPage(1); }}>Caută</button>
+        <button className="search-btn" onClick={() => { getPosts(); setPage(1); }}>Caută</button>
       </div>
 
       <div style={{ display: "flex", gap: "2rem", justifyContent: 'space-evenly', flexWrap: "wrap", margin: "2rem" }}>
@@ -145,38 +153,52 @@ const Home = () => {
             />
           ))
         ) : (
-          <p>Nu ai postări încă.</p>
+          posts && posts.length === 0 ? (
+            <p>Nu există postări.</p>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <GridLoader
+                color="#562db9"
+                loading
+                size={20}
+              />
+            </div>
+          )
         )}
       </div>
 
-      {/* PAGINATION */}
-      <div className="pagination">
-        <button
-          onClick={() => setPage((p) => Math.max(p - 1, 1))} //se asigura ca pagina nu scade sub 1
-          disabled={page === 1}
-          className="pagination-btn"
-        >
-          &lt; Înapoi
-        </button>
+      {/* PAGINATION - apare doar daca sunt postari*/}
+      {posts && posts.length > 0 && (
+        <>
+          <div className="pagination">
+            <button
+              onClick={() => setPage((p) => Math.max(p - 1, 1))} //se asigura ca pagina nu scade sub 1
+              disabled={page === 1}
+              className="pagination-btn"
+            >
+              &lt; Înapoi
+            </button>
 
-        {Array.from({ length: totalPages }, (_, i) => ( //creeaza un array de lungimea totalPages. nu nu intereseaza elementul, de accea _. ne intereseaza indexul i
-          <button
-            key={i}
-            onClick={() => setPage(i + 1)}
-            className={`pagination-btn ${page === i + 1 ? "active" : ""}`}
-          >
-            {i + 1}
-          </button>
-        ))}
+            {Array.from({ length: totalPages }, (_, i) => ( //creeaza un array de lungimea totalPages. nu nu intereseaza elementul, de accea _. ne intereseaza indexul i
+              <button
+                key={i}
+                onClick={() => setPage(i + 1)}
+                className={`pagination-btn ${page === i + 1 ? "active" : ""}`}
+              >
+                {i + 1}
+              </button>
+            ))}
 
-        <button
-          onClick={() => setPage((p) => Math.min(p + 1, totalPages))} //se asigura ca pagina nu creste peste valoarea totalPages
-          disabled={page === totalPages}
-          className="pagination-btn"
-        >
-          Înainte &gt;
-        </button>
-      </div>
+            <button
+              onClick={() => setPage((p) => Math.min(p + 1, totalPages))} //se asigura ca pagina nu creste peste valoarea totalPages
+              disabled={page === totalPages}
+              className="pagination-btn"
+            >
+              Înainte &gt;
+            </button>
+          </div>
+        </>
+      )}
 
     </div>
   );

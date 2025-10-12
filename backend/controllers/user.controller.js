@@ -42,10 +42,17 @@ const UserController = {
                 return res.status(200).json({ message: "No active session" });
             }
 
+            // res.clearCookie("token", {
+            //     httpOnly: true,
+            //     sameSite: "lax",
+            //     secure: false
+            // });
+
+            //production
             res.clearCookie("token", {
                 httpOnly: true,
-                sameSite: "lax",
-                secure: false
+                secure: true,       // trebuie să fie la fel ca la setare
+                sameSite: "none"    // idem, pentru cross-site requests
             });
             res.status(200).json({ message: "Logged out successfully." });
 

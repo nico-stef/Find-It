@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { FaEnvelope, FaMapMarkerAlt, FaCalendar } from "react-icons/fa";
 import PostComponent from "../components/PostComponent";
 import AdFormComponent from "../components/AdFormComponent";
+import { useNavigate } from 'react-router-dom';
+import GridLoader from "react-spinners/GridLoader";
 
 const Profile = () => {
   const [userInfo, setUserInfo] = useState(null);
@@ -15,24 +17,27 @@ const Profile = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState("");
   const limit = 6;
+  const navigate = useNavigate();
+
+  const getYourPosts = async () => {
+    try {
+      const res = await axios.get(
+        `${API_URL}/posts/me?page=${page}&limit=${limit}`,
+        { withCredentials: true }
+      );
+
+      setYourPosts(res.data.posts)
+      setTotalPages(res.data.totalPages);
+    } catch (err) {
+      console.error("Error fetching posts:", err);
+    }
+  };
 
   useEffect(() => {
-    const getYourPosts = async () => {
-      try {
-        const res = await axios.get(
-          `${API_URL}/posts/me?page=${page}&limit=${limit}`,
-          { withCredentials: true }
-        );
-
-        setYourPosts(res.data.posts)
-        setTotalPages(res.data.totalPages);
-      } catch (err) {
-        console.error("Error fetching posts:", err);
-      }
-    };
-
     getYourPosts();
-  }, [page, limit]);
+    if (!showForm)
+      getYourPosts();
+  }, [page, limit, showForm]);
 
   const getUserInfo = async () => {
     try {
@@ -51,17 +56,12 @@ const Profile = () => {
     getUserInfo();
   }, []);
 
-
-  useEffect(() => {
-    console.log(userInfo);
-  }, [userInfo]);
-
   return (
     <div>
       <div className="profile-details">
         {userInfo && (
           <>
-            <img src={userInfo.avatar} alt="Profile picture" className="profile-img" />
+            {userInfo.avatar && <img src={userInfo.avatar} alt="Profile picture" className="profile-img" />}
             <div style={{ flex: 1 }}>
               <h2>{userInfo.firstName} {userInfo.lastName}</h2>
               <ul className="account-details">
@@ -69,10 +69,11 @@ const Profile = () => {
                   <FaEnvelope />
                   {userInfo.email}
                 </li>
-                <li className="detail-li">
-                  <FaMapMarkerAlt />
-                  {userInfo.city}
-                </li>
+                {userInfo.city &&
+                  <li className="detail-li">
+                    <FaMapMarkerAlt />
+                    {userInfo.city}
+                  </li>}
                 <li className="detail-li">
                   <FaCalendar />
                   Membru din {new Date(userInfo.createdAt).getFullYear()}
@@ -123,42 +124,56 @@ const Profile = () => {
               images={post.images}
               dateTime={post.dateTime}
               description={post.description}
+              onClick={() => navigate(`/post/${post._id}`)}
             />
           ))
         ) : (
-          <p>Nu ai postări încă.</p>
+          yourPosts && yourPosts.length === 0 ? (
+            <p>Nu ai postări încă.</p>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <GridLoader
+                color="#562db9"
+                loading
+                size={20}
+              />
+            </div>
+          )
         )}
       </div>
 
-      {/* PAGINATION */}
-      <div className="pagination">
-        <button
-          onClick={() => setPage((p) => Math.max(p - 1, 1))} //se asigura ca pagina nu scade sub 1
-          disabled={page === 1}
-          className="pagination-btn"
-        >
-          &lt; Înapoi
-        </button>
+      {/* PAGINATION - apare doar daca sunt postari*/}
+      {yourPosts && yourPosts.length > 0 && (
+        <>
+          <div className="pagination">
+            <button
+              onClick={() => setPage((p) => Math.max(p - 1, 1))} //se asigura ca pagina nu scade sub 1
+              disabled={page === 1}
+              className="pagination-btn"
+            >
+              &lt; Înapoi
+            </button>
 
-        {Array.from({ length: totalPages }, (_, i) => ( //creeaza un array de lungimea totalPages. nu nu intereseaza elementul, de accea _. ne intereseaza indexul i
-          <button
-            key={i}
-            onClick={() => setPage(i + 1)}
-            className={`pagination-btn ${page === i + 1 ? "active" : ""}`}
-          >
-            {i + 1}
-          </button>
-        ))}
+            {Array.from({ length: totalPages }, (_, i) => ( //creeaza un array de lungimea totalPages. nu nu intereseaza elementul, de accea _. ne intereseaza indexul i
+              <button
+                key={i}
+                onClick={() => setPage(i + 1)}
+                className={`pagination-btn ${page === i + 1 ? "active" : ""}`}
+              >
+                {i + 1}
+              </button>
+            ))}
 
-        <button
-          onClick={() => setPage((p) => Math.min(p + 1, totalPages))} //se asigura ca pagina nu creste peste valoarea totalPages
-          disabled={page === totalPages}
-          className="pagination-btn"
-        >
-          Înainte &gt;
-        </button>
-      </div>
-
+            <button
+              onClick={() => setPage((p) => Math.min(p + 1, totalPages))} //se asigura ca pagina nu creste peste valoarea totalPages
+              disabled={page === totalPages}
+              className="pagination-btn"
+            >
+              Înainte &gt;
+            </button>
+          </div>
+        </>
+      )}
 
     </div>
   );

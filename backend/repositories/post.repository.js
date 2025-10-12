@@ -23,7 +23,8 @@ const PostRepository = {
     async findByFilters(type, startDate, endDate, location, page, limit) {
         const query = {};
         if (type) query.type = type;
-        if (location) query["location.address"] = location;
+        if (location) query["location.address"] = { $regex: location, $options: "i" };//options i o sa imi dea si rezultatele care contin cuv respectiv
+        //de ex daca caut timisoara, o sa imi apara si iulius mall, timisoara
         if (startDate && endDate) query.dateTime = { $gte: startDate, $lte: endDate };
 
         const totalPosts = await Post.countDocuments(query);
@@ -43,6 +44,8 @@ const PostRepository = {
         if (!post) return null;
 
         await post.populate("comments.userId", "firstName lastName email");
+        await post.populate("userId", "firstName lastName");
+
         return post;
     },
     async addComment(postId, userId, text) {

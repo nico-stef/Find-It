@@ -22,12 +22,12 @@ function normalizeLocation(str) {
 }
 
 const PostService = {
-    createPost: async (postData, files, userId) => {
+    createPost: async (postData, files, userId, location) => {
 
         // 1. Luam coordonatele de la Google
-        const { lat, lng, address } = await getCoordsFromPlaceId(postData.place_id);
+        const { lat, lng } = await getCoordsFromPlaceId(postData.place_id);
         postData.location = {
-            address,
+            address: location,
             coords: { type: "Point", coordinates: [lng, lat] }
         };
 
@@ -62,9 +62,7 @@ const PostService = {
             endDate = dateRange.endDate;
         }
 
-        const normalizedLocation = normalizeLocation(location);
-
-        const result = await postRepository.findByFilters(type, startDate, endDate, normalizedLocation, page, limit);
+        const result = await postRepository.findByFilters(type, startDate, endDate, location, page, limit);
         const posts = result.posts;
         const totalPages = result.totalPages;
 
@@ -81,14 +79,14 @@ const PostService = {
         post.images = await generateSignedUrls(post.images);
 
         //post.userId este un ObjectId Mongoose, user_id este string => nu vor da egal
-        const isOwner = post.userId.toString() === user_id.toString();
+        const isOwner = post.userId._id.toString() === user_id.toString();
 
         // convertim documentul mongoose intr-un obiect JS (fara campurile $__, $isNew, _doc.)
         const postObj = post.toObject();
-        const { userId, __v, ...postWithoutUserId } = postObj;
+        const { __v, ...postWithout_v } = postObj;
 
         return {
-            post: postWithoutUserId,
+            post: postWithout_v,
             isOwner
         };
     },
@@ -137,7 +135,7 @@ const PostService = {
 
         if (!post) throw createPublicError("Postarea nu există", 404);
 
-        if (post.userId.toString() !== currentUserId) //post.userId e returnat de tip ObjectId
+        if (post.userId._id.toString() !== currentUserId) //post.userId e returnat de tip ObjectId
             throw createPublicError("Nu poți șterge postarea altcuiva", 403);
 
         await postRepository.deletePost(postId);

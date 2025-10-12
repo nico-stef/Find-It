@@ -27,7 +27,7 @@ const Login = () => {
       setPassword("");
 
       toast.success(response.data.message);
-      navigate("/home");
+      navigate("/feed");
     } catch (error) {
       toast.error(error?.response?.data?.message || "Something went wrong.");
     }
@@ -51,7 +51,7 @@ const Login = () => {
       <div className="login-form">
         <h1 className="login-title">Log In</h1>
         <p className="signup-text">
-          New to Find It? <Link to="/signup">Create an account here.</Link>
+          Nu ai cont la Find It? <Link to="/signup">Creează un cont aici</Link>
         </p>
 
         <form onSubmit={handleLogin}>
@@ -69,12 +69,12 @@ const Login = () => {
             </div>
           </div>
           <div className="credential-line">
-            <label>Password:</label>
+            <label>Parola:</label>
             <div className="input-wrapper">
               <FaLock className="input-icon" />
               <input
                 type="password"
-                placeholder="password"
+                placeholder="parola"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required

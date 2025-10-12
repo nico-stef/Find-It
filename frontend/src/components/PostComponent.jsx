@@ -26,7 +26,8 @@ const PostComponent = ({ type, images, title, location, dateTime, description, o
                     display: 'flex',
                     justifyContent: 'center',  // vertical
                     width: '100%',
-                    alignItems: 'center'
+                    alignItems: 'center',
+                    height: '100%'
                 }}>
                     <div style={{ padding: "1rem" }}>
                         {title && <h3>{title}</h3>}

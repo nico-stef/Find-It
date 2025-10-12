@@ -3,14 +3,14 @@ import PostService from "../services/post.service.js";
 const PostController = {
     post: async (req, res, next) => {
         try {
-            const { type, title, contact, place_id } = req.body;
+            const { type, title, contact, place_id, location } = req.body;
             if (!place_id || !title || !contact || !type) {
                 return res.status(400).json({ message: "Campurile necesare nu sunt completate." });
             }
 
             const userId = req.user.userId;
 
-            await PostService.createPost(req.body, req.files, userId);
+            await PostService.createPost(req.body, req.files, userId, location);
             res.status(201).json({ message: "Post created successfully!" });
         } catch (err) {
             next(err);

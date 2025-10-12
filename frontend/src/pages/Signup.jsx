@@ -64,7 +64,7 @@ const Signup = () => {
       <div className="login-form">
         <h1 className="login-title">Sign Up</h1>
         <p className="signup-text">
-          Already have an account? <Link to="/login">Log in here.</Link>
+          Ai deja cont? <Link to="/login">Log in aici.</Link>
         </p>
 
         <form onSubmit={handleSignup}>
@@ -83,12 +83,12 @@ const Signup = () => {
           </div>
 
           <div className="credential-line">
-            <label>Password:</label>
+            <label>Parola:</label>
             <div className="input-wrapper">
               <FaLock className="input-icon" />
               <input
                 type={showPassword ? "text" : "password"}
-                placeholder="password"
+                placeholder="parola"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -104,12 +104,12 @@ const Signup = () => {
 
           <div className="two-credential-container">
             <div className="credential">
-              <label>First name:</label>
+              <label>Prenume:</label>
               <div className="input-wrapper">
                 <FaUser className="input-icon" />
                 <input
                   type="text"
-                  placeholder="first name"
+                  placeholder="prenume"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   required
@@ -117,12 +117,12 @@ const Signup = () => {
               </div>
             </div>
             <div className="credential">
-              <label>Last name:</label>
+              <label>Nume:</label>
               <div className="input-wrapper">
                 <FaUserAlt className="input-icon" />
                 <input
                   type="text"
-                  placeholder="last Name"
+                  placeholder="nume"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   required
@@ -132,23 +132,23 @@ const Signup = () => {
           </div>
           <div className="two-credential-container">
             <div className="credential">
-              <label>Phone:</label>
+              <label>Telefon:</label>
               <div className="input-wrapper">
                 <FaPhone className="input-icon" />
                 <input
-                  placeholder="phone number (optional)"
+                  placeholder="nr de telefon (optional)"
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
                 />
               </div>
             </div>
             <div className="credential">
-              <label>City:</label>
+              <label>Oraș:</label>
               <div className="input-wrapper">
                 <FaCity className="input-icon" />
                 <input
                   type="text"
-                  placeholder="city (optional)"
+                  placeholder="oras (optional)"
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
                 />

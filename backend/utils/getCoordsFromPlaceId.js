@@ -17,11 +17,10 @@ const getCoordsFromPlaceId = async (placeId) => {
 
         const lat = data.result.geometry.location.lat;
         const lng = data.result.geometry.location.lng;
-        const address = data.result.formatted_address;
 
-        console.log(address)
+        console.log(data)
 
-        return { lat, lng, address };
+        return { lat, lng };
     } catch (err) {
         console.log(err);
         throw createPublicError("Eroare internă.", 400);

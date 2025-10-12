@@ -149,6 +149,10 @@ const PostDetails = () => {
         }
     }
 
+    useEffect(() => {
+        console.log(post)
+    }, [post])
+
     return (
         <div className="container-info">
             {isOwner && (
@@ -181,14 +185,15 @@ const PostDetails = () => {
                         {post.type === 'lost' ? 'Pierdut' : post.type === 'found' ? 'Găsit' : 'Rezolvat'}
                     </div>
 
-
-
                     <div className='details' style={{ gap: '1rem' }}>
                         <h4 className='title'>{post.title}</h4>
+                        <h4 style={{ fontSize: '1.1rem' }}>
+                            👤  {post.userId.firstName} {post.userId.lastName}
+                        </h4>
                         <h4>📍 {post.location?.address}</h4>
                         {post.dateTime && <h4><FaRegCalendarAlt color="blue" size={14} /> {new Date(post.dateTime).toLocaleString()}</h4>}
-                        {post.description && <div>Descriere: {post.description}</div>}
-                        <div>Contact: {post.contact}</div>
+                        {post.description && <div><p className='detail-title'> Descriere: </p> {post.description}</div>}
+                        <div> <p className='detail-title'> Detalii de contact </p>{post.contact}</div>
                     </div>
 
                     <div className='details' style={{ marginBottom: '2rem' }}>
