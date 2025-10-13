@@ -1,6 +1,6 @@
 # Find It Web App
 
-A web application where users can post lost or found items to help owners recover their missing belongings through community collaboration.
+##A web application where users can post lost or found items to help owners recover their missing belongings through community collaboration.
 ---
 
 ### Features
@@ -13,7 +13,7 @@ A web application where users can post lost or found items to help owners recove
 - **Post management**:
   - Delete your own posts.
   - Mark your posts as **resolved** once the item is found.
-- **Profile management**: Update your account information and keep your profile up to date.
+- **Profile management**: Update your account information.
 
 ---
 
@@ -29,7 +29,7 @@ A web application where users can post lost or found items to help owners recove
 
 ### 🔗 Links
 
-- **Live demo:** [https://find-it-self.vercel.app/]
+- **Live demo:** https://find-it-self.vercel.app/
 
 ### Demo Account
 
