@@ -1,6 +1,6 @@
-# Find It Web App
+## Find It Web App
 
-## A web application where users can post lost or found items to help owners recover their missing belongings through community collaboration.
+A web application where users can post lost or found items to help owners recover their missing belongings through community collaboration.
 ---
 
 ### Features
@@ -37,5 +37,5 @@ For quick access, use the following demo credentials:
 - **Username:** test@gmail.com  
 - **Password:** test  
   
-⚠️ **Note:** Render may have a **cold start** if the backend hasn’t been accessed for a while. Please wait about 30 seconds for the login to complete.
+**Note:** Render may have a **cold start** if the backend hasn’t been accessed for a while. Please wait about 30 seconds for the login to complete.
 
