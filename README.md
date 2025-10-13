@@ -12,6 +12,7 @@ A web application where users can post lost or found items to help owners recove
   - View **detailed information** for each post.
 - **Comments**: Add and delete comments on posts.
 - **Post management**:
+  - Create a post.
   - Delete your own posts.
   - Mark your posts as **resolved** once the item is found.
 - **Profile management**: Update your account information.
