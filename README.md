@@ -1,6 +1,7 @@
 ## Find It Web App
 
 A web application where users can post lost or found items to help owners recover their missing belongings through community collaboration.
+
 ---
 
 ### Features
