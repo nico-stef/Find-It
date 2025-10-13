@@ -34,7 +34,7 @@ A web application where users can post lost or found items to help owners recove
 
 ### Demo Account
 
-For quick access, use the following demo credentials:  
+For quick access, use the following credentials:  
 - **Username:** test@gmail.com  
 - **Password:** test  
   
