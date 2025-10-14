@@ -18,8 +18,6 @@ const getCoordsFromPlaceId = async (placeId) => {
         const lat = data.result.geometry.location.lat;
         const lng = data.result.geometry.location.lng;
 
-        console.log(data)
-
         return { lat, lng };
     } catch (err) {
         console.log(err);

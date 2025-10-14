@@ -14,6 +14,7 @@ router.post("/login", UserController.login);
 router.post("/logout", UserController.logout);
 router.get("/checkIfAuth", authMiddleware, UserController.checkIfAuth);
 router.get("/profile", authMiddleware, UserController.getUserInfo);
+router.get("/user", authMiddleware, UserController.getOtherUserInfo);
 router.patch("/profile", authMiddleware, upload.single('image'), UserController.updateUserInfo);
 router.delete("/profile", authMiddleware, UserController.deleteUser);
 router.get("/me", authMiddleware, UserController.getUserId);

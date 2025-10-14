@@ -6,6 +6,8 @@ import axios from "axios";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 import { useNavigate } from 'react-router-dom';
+import ProfilePopUp from '../components/ProfilePopUp';
+import { FaMapMarkerAlt, FaCalendarAlt, FaUser } from 'react-icons/fa';
 
 const PostDetails = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -16,6 +18,7 @@ const PostDetails = () => {
     const [newComment, setNewComment] = useState("");
     const [currentUserId, setCurrentUserId] = useState(null);
     const navigate = useNavigate();
+    const [showProfilePopup, setShowProfilePopup] = useState(false);
 
     const getPost = async () => {
         try {
@@ -187,10 +190,24 @@ const PostDetails = () => {
 
                     <div className='details' style={{ gap: '1rem' }}>
                         <h4 className='title'>{post.title}</h4>
-                        <h4 style={{ fontSize: '1.1rem' }}>
-                            👤  {post.userId.firstName} {post.userId.lastName}
-                        </h4>
-                        <h4>📍 {post.location?.address}</h4>
+                        <div className='author-name'>
+                            <span>
+                                <span className='detail-title' style={{ fontWeight: 'normal', marginRight: '5px' }}><FaUser /> </span>
+                                {post.userId.firstName} {post.userId.lastName}
+                            </span>
+                            <button
+                                className='author-button'
+                                onClick={() => setShowProfilePopup(true)}>
+                                Vezi detalii utilizator
+                            </button>
+                            {showProfilePopup &&
+                                <ProfilePopUp
+                                    onClose={() => setShowProfilePopup(false)}
+                                    email={post.userId.email}
+                                />
+                            }
+                        </div>
+                        <h4><FaMapMarkerAlt color="red" /> {post.location?.address}</h4>
                         {post.dateTime && <h4><FaRegCalendarAlt color="blue" size={14} /> {new Date(post.dateTime).toLocaleString()}</h4>}
                         {post.description && <div><p className='detail-title'> Descriere: </p> {post.description}</div>}
                         <div> <p className='detail-title'> Detalii de contact </p>{post.contact}</div>

@@ -7,7 +7,6 @@ const UserController = {
             if (!email || !password || !firstName || !lastName) {
                 return res.status(400).json({ message: "Câmpurile necesare nu pot fi goale." });
             }
-            console.log(req.body)
             await userService.register(req.body);
             res.status(201).json({ message: "Account created successfully" });
         } catch (error) {
@@ -52,7 +51,7 @@ const UserController = {
             res.clearCookie("token", {
                 httpOnly: true,
                 secure: true,       // trebuie să fie la fel ca la setare
-                sameSite: "none"    // idem, pentru cross-site requests
+                sameSite: "none"    // pentru cross-site requests
             });
             res.status(200).json({ message: "Logged out successfully." });
 
@@ -65,9 +64,19 @@ const UserController = {
         // functia ajuta la a sti daca user are accces la anumite pagini din frontend
         res.status(200).json({ authenticated: true });
     },
-    getUserInfo: async (req, res, next) => {
+    getUserInfo: async (req, res, next) => { //own profile
         try {
             const email = req.user.email;
+            const data = await userService.userInfo(email);
+
+            res.status(200).json(data);
+        } catch (err) {
+            next(err);
+        }
+    },
+    getOtherUserInfo: async (req, res, next) => { // other users' profile
+        try {
+            const { email } = req.query;
             const data = await userService.userInfo(email);
 
             res.status(200).json(data);

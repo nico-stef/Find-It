@@ -1,0 +1,135 @@
+/* Fundal semitransparent din spate */
+.overlay {
+  position: fixed;         /* rămâne pe ecran, chiar dacă faci scroll */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); /* fundal semi-transparent */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Fereastra popup propriu-zisă */
+.popup {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  animation: popup-appear 0.3s ease;
+}
+
+/* Butonul de închidere */
+.close-btn {
+  margin-top: 1rem;
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.close-btn:hover {
+  background: #0056b3;
+}
+
+/* Animație simplă de apariție */
+@keyframes popup-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+/* elemente popup  */
+.user-image-container{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin: 0 0 30px 0;
+}
+
+.user-image{
+  z-index: 10;
+  border-radius: 10px;
+  width: auto;
+  max-height: 300px;
+  height: auto; 
+  object-fit: cover;  
+}
+
+.blur-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  filter: blur(25px);
+  z-index: 1;          /* sub avatar */
+}
+
+.user-details{
+    font-weight: normal;
+    font-size: 1rem;
+    margin-top: 2rem;
+}
+
+.detail{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #333333;
+}
+
+/* butoane vezi profil  */
+.user-buttons {
+  display: flex;
+  gap: 1rem; 
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+.btn {
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+   color: white;
+}
+
+.btn-large{
+  flex: 3;
+  background-color: #667eea;
+}
+
+.btn-small {
+  width: 50%;
+  background-color: #6c757d;
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+}
+
+.close-button-container {
+  display: flex;
+  justify-content: flex-end; /* X la dreapta */
+}
+
+.close-button {
+  display: inline-block; /* doar textul e clickabil */
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 3px;
+}

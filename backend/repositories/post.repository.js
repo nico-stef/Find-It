@@ -44,7 +44,7 @@ const PostRepository = {
         if (!post) return null;
 
         await post.populate("comments.userId", "firstName lastName email");
-        await post.populate("userId", "firstName lastName");
+        await post.populate("userId", "firstName lastName email");
 
         return post;
     },
