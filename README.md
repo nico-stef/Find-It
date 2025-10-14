@@ -15,6 +15,7 @@ A web application where users can post lost or found items to help owners recove
   - Create a post.
   - Delete your own posts.
   - Mark your posts as **resolved** once the item is found.
+  - See the post author’s details.
 - **Profile management**: Update your account information.
 
 ---
